@@ -5,7 +5,7 @@
 Summary: Graphical user interface for Maxima 
 Name:    wxMaxima
 Version: 0.7.0a
-Release: 1%{?dist}
+Release: 1%{?dist}.1
 License: GPL
 Group:   Applications/Engineering
 URL:     http://wxmaxima.sourceforge.net/
@@ -88,6 +88,9 @@ gtk-update-icon-cache -q %{_datadir}/icons/hicolor 2> /dev/null ||:
 
 
 %changelog
+* Wed Oct 04 2006 Rex Dieter <rexdieter[AT]users.sf.net>
+- respin
+
 * Mon Sep 25 2006 Rex Dieter <rexdieter[AT]users.sf.net> 0.7.0a-1
 - 0.7.0a
 - Requires: maxima >= 5.10
