@@ -1,16 +1,15 @@
 
-# Fedora review
-# http://bugzilla.redhat.com/204832
-
 Summary: Graphical user interface for Maxima 
 Name:    wxMaxima
 Version: 0.7.0a
-Release: 1%{?dist}.1
+Release: 2%{?dist}
 License: GPL
 Group:   Applications/Engineering
 URL:     http://wxmaxima.sourceforge.net/
 Source0: http://dl.sourceforge.net/sourceforge/wxmaxima/wxMaxima-%{version}.tar.gz 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+
+Patch1: wxMaxima-0.7.0a-mp.patch
 
 BuildRequires: desktop-file-utils
 BuildRequires: wxGTK-devel
@@ -21,11 +20,13 @@ BuildRequires: sed
 Requires: maxima >= 5.10
 
 %description
-A Graphical user interface for the computer algebra system
+A Graphical user interface for the the computer algebra system
 Maxima using wxWidgets.
 
 %prep
 %setup -q
+
+%patch1 -p1 -b .mp
 
 sed -i -e "s|^Icon=.*|Icon=wxmaxima|" wxmaxima.desktop
 
@@ -88,15 +89,11 @@ gtk-update-icon-cache -q %{_datadir}/icons/hicolor 2> /dev/null ||:
 
 
 %changelog
-* Wed Oct 04 2006 Rex Dieter <rexdieter[AT]users.sf.net>
-- respin
+* Mon Oct 09 2006 Rex Dieter <rexdieter[AT]users.sf.net> 0.7.0a-2
+- patch for proper maxima= entry in ~/.wxMaxima (#209992)
 
 * Mon Sep 25 2006 Rex Dieter <rexdieter[AT]users.sf.net> 0.7.0a-1
 - 0.7.0a
-- Requires: maxima >= 5.10
-
-* Thu Sep 07 2006 Rex Dieter <rexdieter[AT]users.sf.net> 0.7.0-3
-- fix %%description typo
 
 * Tue Sep 05 2006 Rex Dieter <rexdieter[AT]users.sf.net> 0.7.0-2
 - update %%description, %%summary
