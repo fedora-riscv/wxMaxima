@@ -1,8 +1,11 @@
 
+# Fedora review
+# http://bugzilla.redhat.com/204832
+
 Summary: Graphical user interface for Maxima 
 Name:    wxMaxima
 Version: 0.7.0a
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPL
 Group:   Applications/Engineering
 URL:     http://wxmaxima.sourceforge.net/
@@ -20,7 +23,7 @@ BuildRequires: sed
 Requires: maxima >= 5.10
 
 %description
-A Graphical user interface for the the computer algebra system
+A Graphical user interface for the computer algebra system
 Maxima using wxWidgets.
 
 %prep
@@ -89,11 +92,18 @@ gtk-update-icon-cache -q %{_datadir}/icons/hicolor 2> /dev/null ||:
 
 
 %changelog
+* Mon Oct 09 2006 Rex Dieter <rexdieter[AT]users.sf.net> 0.7.0a-3
+- (re)fix typo in %%description
+
 * Mon Oct 09 2006 Rex Dieter <rexdieter[AT]users.sf.net> 0.7.0a-2
 - patch for proper maxima= entry in ~/.wxMaxima (#209992)
 
 * Mon Sep 25 2006 Rex Dieter <rexdieter[AT]users.sf.net> 0.7.0a-1
 - 0.7.0a
+- Requires: maxima >= 5.10
+
+* Thu Sep 07 2006 Rex Dieter <rexdieter[AT]users.sf.net> 0.7.0-3
+- fix %%description typo
 
 * Tue Sep 05 2006 Rex Dieter <rexdieter[AT]users.sf.net> 0.7.0-2
 - update %%description, %%summary
