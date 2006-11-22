@@ -5,7 +5,7 @@
 Summary: Graphical user interface for Maxima 
 Name:    wxMaxima
 Version: 0.7.0a
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPL
 Group:   Applications/Engineering
 URL:     http://wxmaxima.sourceforge.net/
@@ -31,7 +31,15 @@ Maxima using wxWidgets.
 
 %patch1 -p1 -b .mp
 
-sed -i -e "s|^Icon=.*|Icon=wxmaxima|" wxmaxima.desktop
+## wxmaxima.desktop fixups
+# do (some) Categories munging here, some versions of desktop-file-install 
+# (*cough rhel4*) truncate Categories if --remove-category'd items is a
+# substr of another (ie, X-Red-Hat-Base X-Red-Hat-Base-Only)
+sed -i \
+  -e "s|^Categories=.*|Categories=Utility;|" \
+  -e "s|^Icon=.*|Icon=wxmaxima|" \
+  -e "s|^Terminal=0|Terminal=false|" \
+  wxmaxima.desktop
 
 
 %build
@@ -49,12 +57,10 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
 desktop-file-install \
   --dir $RPM_BUILD_ROOT%{_datadir}/applications \
-  --add-category="X-Fedora" --vendor="" \
-  --add-category="Science" \
+  --vendor="" \
   --add-category="Education" \
   --add-category="Math" \
-  --remove-category="X-Red-Hat-Base" \
-  --remove-category="X-Red-Hat-Base-Only" \
+  --remove-category="Utility" \
   wxmaxima.desktop 
 
 # app icon
@@ -92,6 +98,9 @@ gtk-update-icon-cache -q %{_datadir}/icons/hicolor 2> /dev/null ||:
 
 
 %changelog
+* Wed Nov 22 2006 Rex Dieter <rexdieter[AT]users.sf.net> 0.7.0a-4
+- --remove-category=Science;Utility (#215748)
+
 * Mon Oct 09 2006 Rex Dieter <rexdieter[AT]users.sf.net> 0.7.0a-3
 - (re)fix typo in %%description
 
