@@ -5,7 +5,7 @@
 Summary: Graphical user interface for Maxima 
 Name:    wxMaxima
 Version: 0.7.0a
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPL
 Group:   Applications/Engineering
 URL:     http://wxmaxima.sourceforge.net/
@@ -21,6 +21,8 @@ BuildRequires: ImageMagick
 BuildRequires: sed
 
 Requires: maxima >= 5.10
+Requires(post): xdg-utils
+Requires(postun): xdg-utils
 
 %description
 A Graphical user interface for the computer algebra system
@@ -78,12 +80,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %post
-touch --no-create %{_datadir}/icons/hicolor ||:
-gtk-update-icon-cache -q %{_datadir}/icons/hicolor 2> /dev/null ||:
+%{_bindir}/xdg-icon-resource forceupdate --theme hicolor 2> /dev/null || :
 
 %postun
-touch --no-create %{_datadir}/icons/hicolor ||:
-gtk-update-icon-cache -q %{_datadir}/icons/hicolor 2> /dev/null ||:
+%{_bindir}/xdg-icon-resource forceupdate --theme hicolor 2> /dev/null || :
 
 
 %files -f wxMaxima.lang
@@ -98,6 +98,9 @@ gtk-update-icon-cache -q %{_datadir}/icons/hicolor 2> /dev/null ||:
 
 
 %changelog
+* Mon Dec 18 2006 Rex Dieter <rdieter[AT]fedoraproject.org> 0.7.0a-5
+- use xdg-utils in scriptlets
+
 * Wed Nov 22 2006 Rex Dieter <rexdieter[AT]users.sf.net> 0.7.0a-4
 - --remove-category=Science;Utility (#215748)
 
