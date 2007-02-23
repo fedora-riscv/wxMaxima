@@ -4,15 +4,13 @@
 
 Summary: Graphical user interface for Maxima 
 Name:    wxMaxima
-Version: 0.7.0a
-Release: 3%{?dist}
+Version: 0.7.1
+Release: 2%{?dist}
 License: GPL
 Group:   Applications/Engineering
 URL:     http://wxmaxima.sourceforge.net/
 Source0: http://dl.sourceforge.net/sourceforge/wxmaxima/wxMaxima-%{version}.tar.gz 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-
-Patch1: wxMaxima-0.7.0a-mp.patch
 
 BuildRequires: desktop-file-utils
 BuildRequires: wxGTK-devel
@@ -20,7 +18,9 @@ BuildRequires: libxml2-devel
 BuildRequires: ImageMagick
 BuildRequires: sed
 
-Requires: maxima >= 5.10
+Requires: maxima >= 5.11
+Requires(post): xdg-utils
+Requires(postun): xdg-utils
 
 %description
 A Graphical user interface for the computer algebra system
@@ -29,9 +29,15 @@ Maxima using wxWidgets.
 %prep
 %setup -q
 
-%patch1 -p1 -b .mp
-
-sed -i -e "s|^Icon=.*|Icon=wxmaxima|" wxmaxima.desktop
+## wxmaxima.desktop fixups
+# do (some) Categories munging here, some versions of desktop-file-install 
+# (*cough rhel4*) truncate Categories if --remove-category'd items is a
+# substr of another (ie, X-Red-Hat-Base X-Red-Hat-Base-Only)
+sed -i \
+  -e "s|^Categories=.*|Categories=Utility;|" \
+  -e "s|^Icon=.*|Icon=wxmaxima|" \
+  -e "s|^Terminal=0|Terminal=false|" \
+  wxmaxima.desktop
 
 
 %build
@@ -49,12 +55,10 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
 desktop-file-install \
   --dir $RPM_BUILD_ROOT%{_datadir}/applications \
-  --add-category="X-Fedora" --vendor="" \
-  --add-category="Science" \
+  --vendor="" \
   --add-category="Education" \
   --add-category="Math" \
-  --remove-category="X-Red-Hat-Base" \
-  --remove-category="X-Red-Hat-Base-Only" \
+  --remove-category="Utility" \
   wxmaxima.desktop 
 
 # app icon
@@ -72,12 +76,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %post
-touch --no-create %{_datadir}/icons/hicolor ||:
-gtk-update-icon-cache -q %{_datadir}/icons/hicolor 2> /dev/null ||:
+%{_bindir}/xdg-icon-resource forceupdate --theme hicolor 2> /dev/null || :
 
 %postun
-touch --no-create %{_datadir}/icons/hicolor ||:
-gtk-update-icon-cache -q %{_datadir}/icons/hicolor 2> /dev/null ||:
+%{_bindir}/xdg-icon-resource forceupdate --theme hicolor 2> /dev/null || :
 
 
 %files -f wxMaxima.lang
@@ -92,6 +94,16 @@ gtk-update-icon-cache -q %{_datadir}/icons/hicolor 2> /dev/null ||:
 
 
 %changelog
+* Fri Feb 23 2007 Rex Dieter <rdieter[AT]fedoraproject.org> 0.7.1-2
+- wxMaxima-0.7.1
+- drop upstreamed patches
+
+* Mon Dec 18 2006 Rex Dieter <rdieter[AT]fedoraproject.org> 0.7.0a-5
+- use xdg-utils in scriptlets
+
+* Wed Nov 22 2006 Rex Dieter <rexdieter[AT]users.sf.net> 0.7.0a-4
+- --remove-category=Science;Utility (#215748)
+
 * Mon Oct 09 2006 Rex Dieter <rexdieter[AT]users.sf.net> 0.7.0a-3
 - (re)fix typo in %%description
 
