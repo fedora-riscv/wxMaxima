@@ -5,14 +5,12 @@
 Summary: Graphical user interface for Maxima 
 Name:    wxMaxima
 Version: 0.7.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL
 Group:   Applications/Engineering
 URL:     http://wxmaxima.sourceforge.net/
 Source0: http://dl.sourceforge.net/sourceforge/wxmaxima/wxMaxima-%{version}.tar.gz 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-
-Patch1: wxMaxima-0.7.0a-mp.patch
 
 BuildRequires: desktop-file-utils
 BuildRequires: wxGTK-devel
@@ -30,8 +28,6 @@ Maxima using wxWidgets.
 
 %prep
 %setup -q
-
-%patch1 -p1 -b .mp
 
 ## wxmaxima.desktop fixups
 # do (some) Categories munging here, some versions of desktop-file-install 
@@ -98,8 +94,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
-* Fri Feb 23 2007 Rex Dieter <rdieter[AT]fedoraproject.org> 0.7.1-1
+* Fri Feb 23 2007 Rex Dieter <rdieter[AT]fedoraproject.org> 0.7.1-2
 - wxMaxima-0.7.1
+- drop upstreamed patches
 
 * Mon Dec 18 2006 Rex Dieter <rdieter[AT]fedoraproject.org> 0.7.0a-5
 - use xdg-utils in scriptlets
