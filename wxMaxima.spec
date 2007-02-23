@@ -4,8 +4,8 @@
 
 Summary: Graphical user interface for Maxima 
 Name:    wxMaxima
-Version: 0.7.0a
-Release: 5%{?dist}
+Version: 0.7.1
+Release: 1%{?dist}
 License: GPL
 Group:   Applications/Engineering
 URL:     http://wxmaxima.sourceforge.net/
@@ -20,7 +20,7 @@ BuildRequires: libxml2-devel
 BuildRequires: ImageMagick
 BuildRequires: sed
 
-Requires: maxima >= 5.10
+Requires: maxima >= 5.11
 Requires(post): xdg-utils
 Requires(postun): xdg-utils
 
@@ -98,6 +98,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Feb 23 2007 Rex Dieter <rdieter[AT]fedoraproject.org> 0.7.1-1
+- wxMaxima-0.7.1
+
 * Mon Dec 18 2006 Rex Dieter <rdieter[AT]fedoraproject.org> 0.7.0a-5
 - use xdg-utils in scriptlets
 
