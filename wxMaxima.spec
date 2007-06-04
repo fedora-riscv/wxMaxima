@@ -1,16 +1,19 @@
 
-# Fedora review
-# http://bugzilla.redhat.com/204832
+# Fedora review: http://bugzilla.redhat.com/204832
 
 Summary: Graphical user interface for Maxima 
 Name:    wxMaxima
 Version: 0.7.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL
 Group:   Applications/Engineering
 URL:     http://wxmaxima.sourceforge.net/
 Source0: http://dl.sourceforge.net/sourceforge/wxmaxima/wxMaxima-%{version}.tar.gz 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+
+# Deployable only where maxima exsists.
+ExclusiveArch: i386 x86_64 ppc sparc
+Requires: maxima >= 5.11
 
 # for gnuplot < 4.2
 Patch1: wxMaxima-0.7.2-old_gnuplot.patch
@@ -21,7 +24,6 @@ BuildRequires: libxml2-devel
 BuildRequires: ImageMagick
 BuildRequires: sed
 
-Requires: maxima >= 5.11
 Requires(post): xdg-utils
 Requires(postun): xdg-utils
 
@@ -32,11 +34,11 @@ Maxima using wxWidgets.
 %prep
 %setup -q
 
-#if 0%{?fedora} > 7
-## Woo hoo
-#else
+%if 0%{?fedora} > 7
+# we have gnuplot-4.2+, woo hoo.
+%else
 %patch1 -p1 -b .old_gnuplot
-#endif
+%endif
 
 ## wxmaxima.desktop fixups
 # do (some) Categories munging here, some versions of desktop-file-install 
@@ -103,6 +105,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Jun 04 2007 Rex Dieter <rdieter[AT]fedoraproject.org> 0.7.2-2
+- +ExcludeArch, deployable only where maxima exists
+
 * Mon Apr 09 2007 Rex Dieter <rdieter[AT]fedoraproject.org> 0.7.2-1
 - wxMaxima-0.7.2
 
