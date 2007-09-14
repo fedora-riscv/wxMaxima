@@ -4,7 +4,7 @@
 Summary: Graphical user interface for Maxima 
 Name:    wxMaxima
 Version: 0.7.2
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 License: GPLv2+
 Group:   Applications/Engineering
@@ -62,10 +62,9 @@ rm -rf $RPM_BUILD_ROOT
 
 make install DESTDIR=$RPM_BUILD_ROOT
 
-desktop-file-install \
+desktop-file-install --vendor="" \
   --dir $RPM_BUILD_ROOT%{_datadir}/applications \
-  --vendor="" \
-  --add-category="Education" \
+  --add-category="Development" \
   --add-category="Math" \
   --remove-category="Utility" \
   wxmaxima.desktop 
@@ -105,6 +104,9 @@ gtk-update-icon-cache -q %{_datadir}/icons/hicolor 2> /dev/null ||:
 
 
 %changelog
+* Fri Sep 14 2007 Rex Dieter <rdieter[AT]fedoraproject.org> 0.7.3-4
+- wxmaxima.desktop: Categories=Development,Math
+
 * Sat Aug 11 2007 Rex Dieter <rdieter[AT]fedoraproject.org> 0.7.3-3
 - License: GPLv2+
 - revert to classic icon scriptlets
