@@ -4,7 +4,7 @@
 Summary: Graphical user interface for Maxima 
 Name:    wxMaxima
 Version: 0.7.2
-Release: 4%{?dist}.1
+Release: 4%{?dist}.2
 
 License: GPLv2+
 Group:   Applications/Engineering
@@ -101,7 +101,7 @@ gtk-update-icon-cache -q %{_datadir}/icons/hicolor 2> /dev/null ||:
 
 
 %changelog
-* Fri Oct 17 2007 Rex Dieter <rdieter[AT]fedoraproject.org> 0.7.3-4.1
+* Fri Oct 17 2007 Rex Dieter <rdieter[AT]fedoraproject.org> 0.7.3-4.2
 - inline plotting of wxMaxima doesn't work in f7 (#339161)
 
 * Fri Sep 14 2007 Rex Dieter <rdieter[AT]fedoraproject.org> 0.7.3-4
