@@ -4,15 +4,16 @@
 Summary: Graphical user interface for Maxima 
 Name:    wxMaxima
 Version: 0.7.2
-Release: 2%{?dist}
-License: GPL
+Release: 4%{?dist}.1
+
+License: GPLv2+
 Group:   Applications/Engineering
 URL:     http://wxmaxima.sourceforge.net/
 Source0: http://dl.sourceforge.net/sourceforge/wxmaxima/wxMaxima-%{version}.tar.gz 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 # Deployable only where maxima exsists.
-ExclusiveArch: i386 x86_64 ppc sparc
+ExclusiveArch: %{ix86} x86_64 ppc sparc
 Requires: maxima >= 5.11
 
 # for gnuplot < 4.2
@@ -24,9 +25,6 @@ BuildRequires: libxml2-devel
 BuildRequires: ImageMagick
 BuildRequires: sed
 
-Requires(post): xdg-utils
-Requires(postun): xdg-utils
-
 %description
 A Graphical user interface for the computer algebra system
 Maxima using wxWidgets.
@@ -34,11 +32,8 @@ Maxima using wxWidgets.
 %prep
 %setup -q
 
-%if 0%{?fedora} > 7
-# we have gnuplot-4.2+, woo hoo.
-%else
-%patch1 -p1 -b .old_gnuplot
-%endif
+# for gnuplot < 4.0 (?)
+#patch1 -p1 -b .old_gnuplot
 
 ## wxmaxima.desktop fixups
 # do (some) Categories munging here, some versions of desktop-file-install 
@@ -64,10 +59,9 @@ rm -rf $RPM_BUILD_ROOT
 
 make install DESTDIR=$RPM_BUILD_ROOT
 
-desktop-file-install \
+desktop-file-install --vendor="" \
   --dir $RPM_BUILD_ROOT%{_datadir}/applications \
-  --vendor="" \
-  --add-category="Education" \
+  --add-category="Development" \
   --add-category="Math" \
   --remove-category="Utility" \
   wxmaxima.desktop 
@@ -87,10 +81,12 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %post
-%{_bindir}/xdg-icon-resource forceupdate --theme hicolor 2> /dev/null || :
+touch --no-create %{_datadir}/icons/hicolor ||:
+gtk-update-icon-cache -q %{_datadir}/icons/hicolor 2> /dev/null ||:
 
 %postun
-%{_bindir}/xdg-icon-resource forceupdate --theme hicolor 2> /dev/null || :
+touch --no-create %{_datadir}/icons/hicolor ||:
+gtk-update-icon-cache -q %{_datadir}/icons/hicolor 2> /dev/null ||:
 
 
 %files -f wxMaxima.lang
@@ -100,11 +96,22 @@ rm -rf $RPM_BUILD_ROOT
 #doc ChangeLog NEWS
 %{_bindir}/wxmaxima
 %{_datadir}/wxMaxima/
-%{_datadir}/icons/*/*/*
+%{_datadir}/icons/hicolor/*/*
 %{_datadir}/applications/*.desktop
 
 
 %changelog
+* Fri Oct 17 2007 Rex Dieter <rdieter[AT]fedoraproject.org> 0.7.3-4.1
+- inline plotting of wxMaxima doesn't work in f7 (#339161)
+
+* Fri Sep 14 2007 Rex Dieter <rdieter[AT]fedoraproject.org> 0.7.3-4
+- wxmaxima.desktop: Categories=Development,Math
+
+* Sat Aug 11 2007 Rex Dieter <rdieter[AT]fedoraproject.org> 0.7.3-3
+- License: GPLv2+
+- revert to classic icon scriptlets
+- respin (BuildID)
+
 * Mon Jun 04 2007 Rex Dieter <rdieter[AT]fedoraproject.org> 0.7.2-2
 - +ExcludeArch, deployable only where maxima exists
 
