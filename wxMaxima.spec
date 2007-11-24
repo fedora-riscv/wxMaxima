@@ -3,18 +3,18 @@
 
 Summary: Graphical user interface for Maxima 
 Name:    wxMaxima
-Version: 0.7.2
-Release: 4%{?dist}.1
+Version: 0.7.3a
+Release: 1%{?dist}
 
 License: GPLv2+
 Group:   Applications/Engineering
 URL:     http://wxmaxima.sourceforge.net/
-Source0: http://dl.sourceforge.net/sourceforge/wxmaxima/wxMaxima-%{version}.tar.gz 
+Source0: http://downloads.sourceforge.net/sourceforge/wxmaxima/wxMaxima-%{version}.tar.gz 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 # Deployable only where maxima exsists.
 ExclusiveArch: %{ix86} x86_64 ppc sparc
-Requires: maxima >= 5.11
+Requires: maxima >= 5.13
 
 # for gnuplot < 4.2
 Patch1: wxMaxima-0.7.2-old_gnuplot.patch
@@ -101,6 +101,9 @@ gtk-update-icon-cache -q %{_datadir}/icons/hicolor 2> /dev/null ||:
 
 
 %changelog
+* Fri Nov 23 2007 Rex Dieter <rdieter[AT]fedoraproject.org> 0.7.3a-1
+- wxMaxima-0.7.3a
+
 * Fri Oct 17 2007 Rex Dieter <rdieter[AT]fedoraproject.org> 0.7.3-4.1
 - inline plotting of wxMaxima doesn't work in f7 (#339161)
 
