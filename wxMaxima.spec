@@ -3,7 +3,7 @@
 
 Summary: Graphical user interface for Maxima 
 Name:    wxMaxima
-Version: 0.7.3a
+Version: 0.7.4
 Release: 1%{?dist}
 
 License: GPLv2+
@@ -14,6 +14,9 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 # Deployable only where maxima exsists.
 ExclusiveArch: %{ix86} x86_64 ppc sparc
+
+Provides: wxmaxima = %{version}-%{release}
+
 Requires: maxima >= 5.13
 
 # for gnuplot < 4.2
@@ -101,6 +104,9 @@ gtk-update-icon-cache -q %{_datadir}/icons/hicolor 2> /dev/null ||:
 
 
 %changelog
+* Fri Dec 07 2007 Rex Dieter <rdieter[AT]fedoraproject.org> 0.7.4-1
+- wxMaxima-0.7.4
+
 * Fri Nov 23 2007 Rex Dieter <rdieter[AT]fedoraproject.org> 0.7.3a-1
 - wxMaxima-0.7.3a
 
