@@ -3,8 +3,8 @@
 
 Summary: Graphical user interface for Maxima 
 Name:    wxMaxima
-Version: 0.7.3a
-Release: 1%{?dist}
+Version: 0.7.4
+Release: 2%{?dist}
 
 License: GPLv2+
 Group:   Applications/Engineering
@@ -14,6 +14,9 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 # Deployable only where maxima exsists.
 ExclusiveArch: %{ix86} x86_64 ppc sparc
+
+Provides: wxmaxima = %{version}-%{release}
+
 Requires: maxima >= 5.13
 
 # for gnuplot < 4.2
@@ -45,6 +48,9 @@ sed -i \
   -e "s|^Terminal=0|Terminal=false|" \
   wxmaxima.desktop
 
+# app icon
+convert -resize 48x48 wxmaxima.png wxmaxima-48x48.png
+
 
 %build
 %configure \
@@ -55,29 +61,29 @@ make %{?_smp_mflags}
 
 
 %install
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
-make install DESTDIR=$RPM_BUILD_ROOT
+make install DESTDIR=%{buildroot}
 
 desktop-file-install --vendor="" \
-  --dir $RPM_BUILD_ROOT%{_datadir}/applications \
+  --dir %{buildroot}%{_datadir}/applications \
   --add-category="Development" \
   --add-category="Math" \
   --remove-category="Utility" \
   wxmaxima.desktop 
 
 # app icon
-convert -resize 48x48 maxima-new.png wxmaxima.png
-install -p -D -m644 wxmaxima.png $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/48x48/apps/wxmaxima.png
+install -p -D -m644 wxmaxima.png %{buildroot}%{_datadir}/icons/hicolor/128x128/apps/wxmaxima.png
+install -p -D -m644 wxmaxima-48x48.png %{buildroot}%{_datadir}/icons/hicolor/48x48/apps/wxmaxima.png
 
 # Unpackaged files
-rm -f $RPM_BUILD_ROOT%{_datadir}/wxMaxima/{COPYING,README}
+rm -f %{buildroot}%{_datadir}/wxMaxima/{COPYING,README}
 
 %find_lang wxMaxima 
 
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 
 %post
@@ -96,11 +102,17 @@ gtk-update-icon-cache -q %{_datadir}/icons/hicolor 2> /dev/null ||:
 #doc ChangeLog NEWS
 %{_bindir}/wxmaxima
 %{_datadir}/wxMaxima/
-%{_datadir}/icons/hicolor/*/*
+%{_datadir}/icons/hicolor/*/*/*
 %{_datadir}/applications/*.desktop
 
 
 %changelog
+* Tue Dec 11 2007 Rex Dieter <rdieter[AT]fedoraproject.org> 0.7.4-2
+- fix app icon handling/packaging
+
+* Fri Dec 07 2007 Rex Dieter <rdieter[AT]fedoraproject.org> 0.7.4-1
+- wxMaxima-0.7.4
+
 * Fri Nov 23 2007 Rex Dieter <rdieter[AT]fedoraproject.org> 0.7.3a-1
 - wxMaxima-0.7.3a
 
