@@ -13,8 +13,12 @@ Source0: http://downloads.sourceforge.net/sourceforge/wxmaxima/wxMaxima-%{versio
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 # Deployable only where maxima exsists.
+%if 0%{?fedora} > 8
 # reinclude ppc when fixed: http://bugzilla.redhat.com/448734
-ExclusiveArch: %{ix86} x86_64 sparc
+ExclusiveArch: i386 x86_64 sparc
+%else
+ExclusiveArch: i386 x86_64 ppc sparc
+%endif
 
 Provides: wxmaxima = %{version}-%{release}
 
