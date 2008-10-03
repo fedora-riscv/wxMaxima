@@ -4,7 +4,7 @@
 Summary: Graphical user interface for Maxima 
 Name:    wxMaxima
 Version: 0.7.5
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv2+
 Group:   Applications/Engineering
@@ -15,9 +15,9 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 # Deployable only where maxima exsists.
 %if 0%{?fedora} > 8
 # reinclude ppc when fixed: http://bugzilla.redhat.com/448734
-ExclusiveArch: i386 x86_64 sparc
+ExclusiveArch: i386 x86_64 sparcv9
 %else
-ExclusiveArch: i386 x86_64 ppc sparc
+ExclusiveArch: i386 x86_64 ppc sparcv9
 %endif
 
 Provides: wxmaxima = %{version}-%{release}
@@ -112,9 +112,12 @@ gtk-update-icon-cache -q %{_datadir}/icons/hicolor 2> /dev/null ||:
 
 
 %changelog
+* Thu Oct 02 2008 Dennis Gilmore <dennis@ausil.us> 0.7.5-2
+- build sparcv9
+
 * Tue Jun 10 2008 Rex Dieter <rdieter@fedoraproject.org> 0.7.5-1
 - wxMaxima-0.7.5
-- exclude ppc (#448734)
+- exclude ppc, f9+ (#448734)
 
 * Mon Feb 11 2008 Rex Dieter <rdieter@fedoraproject.org> 0.7.4-3 
 - respin (gcc43)
