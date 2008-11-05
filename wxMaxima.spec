@@ -3,8 +3,8 @@
 
 Summary: Graphical user interface for Maxima 
 Name:    wxMaxima
-Version: 0.7.4
-Release: 2%{?dist}
+Version: 0.7.6
+Release: 1%{?dist}
 
 License: GPLv2+
 Group:   Applications/Engineering
@@ -13,7 +13,12 @@ Source0: http://downloads.sourceforge.net/sourceforge/wxmaxima/wxMaxima-%{versio
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 # Deployable only where maxima exsists.
-ExclusiveArch: %{ix86} x86_64 ppc sparc
+%if 0%{?fedora} > 8
+# reinclude ppc when fixed: http://bugzilla.redhat.com/448734
+ExclusiveArch: i386 x86_64 sparcv9
+%else
+ExclusiveArch: i386 x86_64 ppc sparcv9
+%endif
 
 Provides: wxmaxima = %{version}-%{release}
 
@@ -23,10 +28,10 @@ Requires: maxima >= 5.13
 Patch1: wxMaxima-0.7.2-old_gnuplot.patch
 
 BuildRequires: desktop-file-utils
-BuildRequires: ImageMagick
-BuildRequires: libxml2-devel
-BuildRequires: sed
 BuildRequires: wxGTK-devel
+BuildRequires: libxml2-devel
+BuildRequires: ImageMagick
+BuildRequires: sed
 
 %description
 A Graphical user interface for the computer algebra system
@@ -61,29 +66,29 @@ make %{?_smp_mflags}
 
 
 %install
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
-make install DESTDIR=$RPM_BUILD_ROOT
+make install DESTDIR=%{buildroot}
 
 desktop-file-install --vendor="" \
-  --dir $RPM_BUILD_ROOT%{_datadir}/applications \
+  --dir %{buildroot}%{_datadir}/applications \
   --add-category="Development" \
   --add-category="Math" \
   --remove-category="Utility" \
   wxmaxima.desktop 
 
 # app icon
-install -p -D -m644 wxmaxima.png $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/128x128/apps/wxmaxima.png
-install -p -D -m644 wxmaxima-48x48.png $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/48x48/apps/wxmaxima.png
+install -p -D -m644 wxmaxima.png %{buildroot}%{_datadir}/icons/hicolor/128x128/apps/wxmaxima.png
+install -p -D -m644 wxmaxima-48x48.png %{buildroot}%{_datadir}/icons/hicolor/48x48/apps/wxmaxima.png
 
 # Unpackaged files
-rm -f $RPM_BUILD_ROOT%{_datadir}/wxMaxima/{COPYING,README}
+rm -f %{buildroot}%{_datadir}/wxMaxima/{COPYING,README}
 
 %find_lang wxMaxima 
 
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 
 %post
@@ -102,11 +107,27 @@ gtk-update-icon-cache -q %{_datadir}/icons/hicolor 2> /dev/null ||:
 #doc ChangeLog NEWS
 %{_bindir}/wxmaxima
 %{_datadir}/wxMaxima/
-%{_datadir}/icons/hicolor/*/*
+%{_datadir}/icons/hicolor/*/*/*
 %{_datadir}/applications/*.desktop
 
 
 %changelog
+* Wed Nov 05 2008 Rex Dieter <rdieter@fedoraproject.org> 0.7.6-1
+- wxMaxima-0.7.6
+
+* Thu Oct 02 2008 Dennis Gilmore <dennis@ausil.us> 0.7.5-2
+- build sparcv9
+
+* Tue Jun 10 2008 Rex Dieter <rdieter@fedoraproject.org> 0.7.5-1
+- wxMaxima-0.7.5
+- exclude ppc, f9+ (#448734)
+
+* Mon Feb 11 2008 Rex Dieter <rdieter@fedoraproject.org> 0.7.4-3 
+- respin (gcc43)
+
+* Tue Dec 11 2007 Rex Dieter <rdieter[AT]fedoraproject.org> 0.7.4-2
+- fix app icon handling/packaging
+
 * Fri Dec 07 2007 Rex Dieter <rdieter[AT]fedoraproject.org> 0.7.4-1
 - wxMaxima-0.7.4
 
