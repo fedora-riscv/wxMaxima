@@ -24,9 +24,6 @@ Provides: wxmaxima = %{version}-%{release}
 
 Requires: maxima >= 5.13
 
-# for gnuplot < 4.2
-Patch1: wxMaxima-0.7.2-old_gnuplot.patch
-
 BuildRequires: desktop-file-utils
 BuildRequires: wxGTK-devel
 BuildRequires: libxml2-devel
@@ -39,9 +36,6 @@ Maxima using wxWidgets.
 
 %prep
 %setup -q
-
-# for gnuplot < 4.0 (?)
-#patch1 -p1 -b .old_gnuplot
 
 ## wxmaxima.desktop fixups
 # do (some) Categories munging here, some versions of desktop-file-install 
