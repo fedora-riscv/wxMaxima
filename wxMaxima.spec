@@ -3,8 +3,8 @@
 
 Summary: Graphical user interface for Maxima 
 Name:    wxMaxima
-Version: 0.7.6
-Release: 3%{?dist}
+Version: 0.8.1
+Release: 1%{?dist}
 
 License: GPLv2+
 Group:   Applications/Engineering
@@ -34,21 +34,12 @@ BuildRequires: sed
 A Graphical user interface for the computer algebra system
 Maxima using wxWidgets.
 
+
 %prep
 %setup -q
 
-## wxmaxima.desktop fixups
-# do (some) Categories munging here, some versions of desktop-file-install 
-# (*cough rhel4*) truncate Categories if --remove-category'd items is a
-# substr of another (ie, X-Red-Hat-Base X-Red-Hat-Base-Only)
-sed -i \
-  -e "s|^Categories=.*|Categories=Utility;|" \
-  -e "s|^Icon=.*|Icon=wxmaxima|" \
-  -e "s|^Terminal=0|Terminal=false|" \
-  wxmaxima.desktop
-
 # app icon
-convert -resize 48x48 wxmaxima.png wxmaxima-48x48.png
+convert -resize 48x48 data/wxmaxima.png data/wxmaxima-48x48.png
 
 
 %build
@@ -72,8 +63,8 @@ desktop-file-install --vendor="" \
   wxmaxima.desktop 
 
 # app icon
-install -p -D -m644 wxmaxima.png %{buildroot}%{_datadir}/icons/hicolor/128x128/apps/wxmaxima.png
-install -p -D -m644 wxmaxima-48x48.png %{buildroot}%{_datadir}/icons/hicolor/48x48/apps/wxmaxima.png
+install -p -D -m644 data/wxmaxima.png %{buildroot}%{_datadir}/icons/hicolor/128x128/apps/wxmaxima.png
+install -p -D -m644 data/wxmaxima-48x48.png %{buildroot}%{_datadir}/icons/hicolor/48x48/apps/wxmaxima.png
 
 # Unpackaged files
 rm -f %{buildroot}%{_datadir}/wxMaxima/{COPYING,README}
@@ -86,12 +77,18 @@ rm -rf %{buildroot}
 
 
 %post
-touch --no-create %{_datadir}/icons/hicolor ||:
-gtk-update-icon-cache -q %{_datadir}/icons/hicolor 2> /dev/null ||:
+touch --no-create %{_datadir}/icons/hicolor &> /dev/null || :
 
 %postun
-touch --no-create %{_datadir}/icons/hicolor ||:
-gtk-update-icon-cache -q %{_datadir}/icons/hicolor 2> /dev/null ||:
+if [ $1 -eq 0 ] ; then
+  update-desktop-database -q &> /dev/null
+  touch --no-create %{_datadir}/icons/hicolor &> /dev/null
+  gtk-update-icon-cache %{_datadir}/icons/hicolor &> /dev/null || :
+fi
+
+%posttrans
+update-desktop-database -q &> /dev/null
+gtk-update-icon-cache %{_datadir}/icons/hicolor &> /dev/null || :
 
 
 %files -f wxMaxima.lang
@@ -106,6 +103,9 @@ gtk-update-icon-cache -q %{_datadir}/icons/hicolor 2> /dev/null ||:
 
 
 %changelog
+* Sat Apr 18 2009 Rex Dieter <rdieter@fedoraproject.org> - 0.8.1-1
+- wxMaxima-0.8.1
+
 * Fri Feb 27 2009 Rex Dieter <rdieter@fedoraproject.org> - 0.7.6-3 
 - ExclusiveArch: s/i386/%%ix86/
 
