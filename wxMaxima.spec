@@ -4,7 +4,7 @@
 Summary: Graphical user interface for Maxima 
 Name:    wxMaxima
 Version: 0.8.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: GPLv2+
 Group:   Applications/Engineering
@@ -24,7 +24,7 @@ ExclusiveArch: %{ix86} x86_64 ppc sparcv9
 
 Provides: wxmaxima = %{version}-%{release}
 
-Requires: maxima >= 5.13
+Requires: maxima >= 5.18
 
 BuildRequires: desktop-file-utils
 BuildRequires: wxGTK-devel
@@ -105,6 +105,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &> /dev/null || :
 
 
 %changelog
+* Sat Jul 18 2009 Rex Dieter <rdieter@fedoraproject.org> - 0.8.2-3
+- Requires: maxima >= 5.18
+
 * Sat Jul 18 2009 Rex Dieter <rdieter@fedoraproject.org> - 0.8.2-2
 - output window of wxMaxima is not visible in RtL locales (#455863)
 
