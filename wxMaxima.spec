@@ -4,13 +4,15 @@
 Summary: Graphical user interface for Maxima 
 Name:    wxMaxima
 Version: 0.7.6
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 License: GPLv2+
 Group:   Applications/Engineering
 URL:     http://wxmaxima.sourceforge.net/
 Source0: http://downloads.sourceforge.net/sourceforge/wxmaxima/wxMaxima-%{version}.tar.gz 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+
+Patch1: wxMaxima-0.7.6-ltr_layout.patch
 
 # Deployable only where maxima exsists.
 %if 0%{?fedora} > 8
@@ -37,6 +39,8 @@ Maxima using wxWidgets.
 %prep
 %setup -q
 
+%patch1 -p1 -b .ltr_layout
+
 ## wxmaxima.desktop fixups
 # do (some) Categories munging here, some versions of desktop-file-install 
 # (*cough rhel4*) truncate Categories if --remove-category'd items is a
@@ -46,9 +50,6 @@ sed -i \
   -e "s|^Icon=.*|Icon=wxmaxima|" \
   -e "s|^Terminal=0|Terminal=false|" \
   wxmaxima.desktop
-
-# app icon
-convert -resize 48x48 wxmaxima.png wxmaxima-48x48.png
 
 
 %build
@@ -73,6 +74,7 @@ desktop-file-install --vendor="" \
 
 # app icon
 install -p -D -m644 wxmaxima.png %{buildroot}%{_datadir}/icons/hicolor/128x128/apps/wxmaxima.png
+convert -resize 48x48 wxmaxima.png wxmaxima-48x48.png
 install -p -D -m644 wxmaxima-48x48.png %{buildroot}%{_datadir}/icons/hicolor/48x48/apps/wxmaxima.png
 
 # Unpackaged files
@@ -80,18 +82,27 @@ rm -f %{buildroot}%{_datadir}/wxMaxima/{COPYING,README}
 
 %find_lang wxMaxima 
 
+# Unpackaged files
+rm -f %{buildroot}%{_datadir}/wxMaxima/{COPYING,README}
+
 
 %clean
 rm -rf %{buildroot}
 
 
 %post
-touch --no-create %{_datadir}/icons/hicolor ||:
-gtk-update-icon-cache -q %{_datadir}/icons/hicolor 2> /dev/null ||:
+touch --no-create %{_datadir}/icons/hicolor &> /dev/null || :
 
 %postun
-touch --no-create %{_datadir}/icons/hicolor ||:
-gtk-update-icon-cache -q %{_datadir}/icons/hicolor 2> /dev/null ||:
+if [ $1 -eq 0 ] ; then
+  update-desktop-database -q &> /dev/null
+  touch --no-create %{_datadir}/icons/hicolor &> /dev/null
+  gtk-update-icon-cache %{_datadir}/icons/hicolor &> /dev/null || :
+fi
+
+%posttrans
+update-desktop-database -q &> /dev/null
+gtk-update-icon-cache %{_datadir}/icons/hicolor &> /dev/null || :
 
 
 %files -f wxMaxima.lang
@@ -106,6 +117,10 @@ gtk-update-icon-cache -q %{_datadir}/icons/hicolor 2> /dev/null ||:
 
 
 %changelog
+* Sat Jul 18 2009 Rex Dieter <rdieter@fedoraproject.org> - 0.7.6-4
+- output window of wxMaxima is not visible in RtL locales (#455863)
+- optimize scriptlets
+
 * Fri Feb 27 2009 Rex Dieter <rdieter@fedoraproject.org> - 0.7.6-3 
 - ExclusiveArch: s/i386/%%ix86/
 
