@@ -4,13 +4,15 @@
 Summary: Graphical user interface for Maxima 
 Name:    wxMaxima
 Version: 0.8.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv2+
 Group:   Applications/Engineering
 URL:     http://wxmaxima.sourceforge.net/
 Source0: http://downloads.sourceforge.net/sourceforge/wxmaxima/wxMaxima-%{version}.tar.gz 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+
+Patch1: wxMaxima-0.8.2-ltr_layout.patch
 
 # Deployable only where maxima exsists.
 %if 0%{?fedora} > 8
@@ -38,8 +40,7 @@ Maxima using wxWidgets.
 %prep
 %setup -q
 
-# app icon
-convert -resize 48x48 data/wxmaxima.png data/wxmaxima-48x48.png
+%patch1 -p1 -b .ltr_layout
 
 
 %build
@@ -64,12 +65,13 @@ desktop-file-install --vendor="" \
 
 # app icon
 install -p -D -m644 data/wxmaxima.png %{buildroot}%{_datadir}/icons/hicolor/128x128/apps/wxmaxima.png
+convert -resize 48x48 data/wxmaxima.png data/wxmaxima-48x48.png
 install -p -D -m644 data/wxmaxima-48x48.png %{buildroot}%{_datadir}/icons/hicolor/48x48/apps/wxmaxima.png
+
+%find_lang wxMaxima 
 
 # Unpackaged files
 rm -f %{buildroot}%{_datadir}/wxMaxima/{COPYING,README}
-
-%find_lang wxMaxima 
 
 
 %clean
@@ -103,6 +105,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &> /dev/null || :
 
 
 %changelog
+* Sat Jul 18 2009 Rex Dieter <rdieter@fedoraproject.org> - 0.8.2-2
+- output window of wxMaxima is not visible in RtL locales (#455863)
+
 * Mon Jun 29 2009 Rex Dieter <rdieter@fedoraproject.org> - 0.8.2-1
 - wxMaxima-0.8.2
 
