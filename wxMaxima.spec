@@ -3,8 +3,8 @@
 
 Summary: Graphical user interface for Maxima 
 Name:    wxMaxima
-Version: 0.7.6
-Release: 1%{?dist}
+Version: 0.8.2
+Release: 3%{?dist}
 
 License: GPLv2+
 Group:   Applications/Engineering
@@ -12,20 +12,19 @@ URL:     http://wxmaxima.sourceforge.net/
 Source0: http://downloads.sourceforge.net/sourceforge/wxmaxima/wxMaxima-%{version}.tar.gz 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
+Patch1: wxMaxima-0.8.2-ltr_layout.patch
+
 # Deployable only where maxima exsists.
 %if 0%{?fedora} > 8
 # reinclude ppc when fixed: http://bugzilla.redhat.com/448734
-ExclusiveArch: i386 x86_64 sparcv9
+ExclusiveArch: %{ix86} x86_64 sparcv9
 %else
-ExclusiveArch: i386 x86_64 ppc sparcv9
+ExclusiveArch: %{ix86} x86_64 ppc sparcv9
 %endif
 
 Provides: wxmaxima = %{version}-%{release}
 
-Requires: maxima >= 5.13
-
-# for gnuplot < 4.2
-Patch1: wxMaxima-0.7.2-old_gnuplot.patch
+Requires: maxima >= 5.18
 
 BuildRequires: desktop-file-utils
 BuildRequires: wxGTK-devel
@@ -37,24 +36,11 @@ BuildRequires: sed
 A Graphical user interface for the computer algebra system
 Maxima using wxWidgets.
 
+
 %prep
 %setup -q
 
-# for gnuplot < 4.0 (?)
-#patch1 -p1 -b .old_gnuplot
-
-## wxmaxima.desktop fixups
-# do (some) Categories munging here, some versions of desktop-file-install 
-# (*cough rhel4*) truncate Categories if --remove-category'd items is a
-# substr of another (ie, X-Red-Hat-Base X-Red-Hat-Base-Only)
-sed -i \
-  -e "s|^Categories=.*|Categories=Utility;|" \
-  -e "s|^Icon=.*|Icon=wxmaxima|" \
-  -e "s|^Terminal=0|Terminal=false|" \
-  wxmaxima.desktop
-
-# app icon
-convert -resize 48x48 wxmaxima.png wxmaxima-48x48.png
+%patch1 -p1 -b .ltr_layout
 
 
 %build
@@ -78,13 +64,14 @@ desktop-file-install --vendor="" \
   wxmaxima.desktop 
 
 # app icon
-install -p -D -m644 wxmaxima.png %{buildroot}%{_datadir}/icons/hicolor/128x128/apps/wxmaxima.png
-install -p -D -m644 wxmaxima-48x48.png %{buildroot}%{_datadir}/icons/hicolor/48x48/apps/wxmaxima.png
+install -p -D -m644 data/wxmaxima.png %{buildroot}%{_datadir}/icons/hicolor/128x128/apps/wxmaxima.png
+convert -resize 48x48 data/wxmaxima.png data/wxmaxima-48x48.png
+install -p -D -m644 data/wxmaxima-48x48.png %{buildroot}%{_datadir}/icons/hicolor/48x48/apps/wxmaxima.png
+
+%find_lang wxMaxima 
 
 # Unpackaged files
 rm -f %{buildroot}%{_datadir}/wxMaxima/{COPYING,README}
-
-%find_lang wxMaxima 
 
 
 %clean
@@ -92,12 +79,18 @@ rm -rf %{buildroot}
 
 
 %post
-touch --no-create %{_datadir}/icons/hicolor ||:
-gtk-update-icon-cache -q %{_datadir}/icons/hicolor 2> /dev/null ||:
+touch --no-create %{_datadir}/icons/hicolor &> /dev/null || :
 
 %postun
-touch --no-create %{_datadir}/icons/hicolor ||:
-gtk-update-icon-cache -q %{_datadir}/icons/hicolor 2> /dev/null ||:
+if [ $1 -eq 0 ] ; then
+  update-desktop-database -q &> /dev/null
+  touch --no-create %{_datadir}/icons/hicolor &> /dev/null
+  gtk-update-icon-cache %{_datadir}/icons/hicolor &> /dev/null || :
+fi
+
+%posttrans
+update-desktop-database -q &> /dev/null
+gtk-update-icon-cache %{_datadir}/icons/hicolor &> /dev/null || :
 
 
 %files -f wxMaxima.lang
@@ -108,10 +101,28 @@ gtk-update-icon-cache -q %{_datadir}/icons/hicolor 2> /dev/null ||:
 %{_bindir}/wxmaxima
 %{_datadir}/wxMaxima/
 %{_datadir}/icons/hicolor/*/*/*
-%{_datadir}/applications/*.desktop
+%{_datadir}/applications/wxmaxima.desktop
 
 
 %changelog
+* Sat Jul 18 2009 Rex Dieter <rdieter@fedoraproject.org> - 0.8.2-3
+- Requires: maxima >= 5.18
+
+* Sat Jul 18 2009 Rex Dieter <rdieter@fedoraproject.org> - 0.8.2-2
+- output window of wxMaxima is not visible in RtL locales (#455863)
+
+* Mon Jun 29 2009 Rex Dieter <rdieter@fedoraproject.org> - 0.8.2-1
+- wxMaxima-0.8.2
+
+* Sat Apr 18 2009 Rex Dieter <rdieter@fedoraproject.org> - 0.8.1-1
+- wxMaxima-0.8.1
+
+* Fri Feb 27 2009 Rex Dieter <rdieter@fedoraproject.org> - 0.7.6-3 
+- ExclusiveArch: s/i386/%%ix86/
+
+* Wed Feb 25 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.7.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
+
 * Wed Nov 05 2008 Rex Dieter <rdieter@fedoraproject.org> 0.7.6-1
 - wxMaxima-0.7.6
 
