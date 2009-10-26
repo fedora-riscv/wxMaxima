@@ -1,0 +1,12 @@
+diff -up wxMaxima-0.8.3a/src/MathCtrl.cpp.ltr_layout wxMaxima-0.8.3a/src/MathCtrl.cpp
+--- wxMaxima-0.8.3a/src/MathCtrl.cpp.ltr_layout	2009-07-29 11:10:32.000000000 -0500
++++ wxMaxima-0.8.3a/src/MathCtrl.cpp	2009-10-25 21:44:12.939696128 -0500
+@@ -86,6 +86,8 @@ MathCtrl::MathCtrl(wxWindow* parent, int
+   m_zoomFactor = 1.0; // set zoom to 100%
+   m_evaluationQueue = new EvaluationQueue();
+   AdjustSize();
++  // hack to workaround problems in RtL locales, http://bugzilla.redhat.com/455863
++  SetLayoutDirection(wxLayout_LeftToRight);
+ }
+ 
+ MathCtrl::~MathCtrl() {
