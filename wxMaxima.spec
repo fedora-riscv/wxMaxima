@@ -4,7 +4,7 @@
 Summary: Graphical user interface for Maxima 
 Name:    wxMaxima
 Version: 0.8.3a
-Release: 1%{?dist}
+Release: 1%{?dist}.1
 
 License: GPLv2+
 Group:   Applications/Engineering
@@ -25,7 +25,7 @@ ExclusiveArch: %{ix86} x86_64 ppc sparcv9
 
 Provides: wxmaxima = %{version}-%{release}
 
-Requires: maxima >= 5.18
+Requires: maxima >= 5.19
 
 BuildRequires: desktop-file-utils
 BuildRequires: wxGTK-devel
@@ -106,6 +106,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &> /dev/null || :
 
 
 %changelog
+* Fri Nov 13 2009 Rex Dieter <rdieter@fedoraproject.org> - 0.8.3a-1.1
+- Requires: maxima >= 5.19
+
 * Sun Oct 25 2009 Rex Dieter <rdieter@fedoraproject.org> - 0.8.3a-1
 - wxMaxima-0.8.3a (#530915)
 
