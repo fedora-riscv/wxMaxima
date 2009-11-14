@@ -107,7 +107,7 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &> /dev/null || :
 
 %changelog
 * Fri Nov 13 2009 Rex Dieter <rdieter@fedoraproject.org> - 0.8.3a-1.1
-- Requires: maxima >= 5.19
+- Requires: maxima >= 5.19 (#521722)
 
 * Sun Oct 25 2009 Rex Dieter <rdieter@fedoraproject.org> - 0.8.3a-1
 - wxMaxima-0.8.3a (#530915)
