@@ -3,7 +3,7 @@
 
 Summary: Graphical user interface for Maxima 
 Name:    wxMaxima
-Version: 0.8.3a
+Version: 0.8.4
 Release: 1%{?dist}
 
 License: GPLv2+
@@ -11,9 +11,6 @@ Group:   Applications/Engineering
 URL:     http://wxmaxima.sourceforge.net/
 Source0: http://downloads.sourceforge.net/sourceforge/wxmaxima/wxMaxima-%{version}.tar.gz 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-
-## upstreamable patches
-Patch50: wxMaxima-0.8.3a-ltr_layout.patch
 
 # Deployable only where maxima exsists.
 %if 0%{?fedora} > 8
@@ -25,7 +22,7 @@ ExclusiveArch: %{ix86} x86_64 ppc sparcv9
 
 Provides: wxmaxima = %{version}-%{release}
 
-Requires: maxima >= 5.18
+Requires: maxima >= 5.20
 
 BuildRequires: desktop-file-utils
 BuildRequires: wxGTK-devel
@@ -40,8 +37,6 @@ Maxima using wxWidgets.
 
 %prep
 %setup -q
-
-%patch50 -p1 -b .ltr_layout
 
 
 %build
@@ -106,6 +101,12 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &> /dev/null || :
 
 
 %changelog
+* Tue Dec 22 2009 Rex Dieter <rdieter@fedoraproject.org> - 0.8.4-1
+- wxMaxima-0.8.4
+
+* Fri Nov 13 2009 Rex Dieter <rdieter@fedoraproject.org> - 0.8.3a-1.1
+- Requires: maxima >= 5.19 (#521722)
+
 * Sun Oct 25 2009 Rex Dieter <rdieter@fedoraproject.org> - 0.8.3a-1
 - wxMaxima-0.8.3a (#530915)
 
