@@ -4,7 +4,7 @@
 Summary: Graphical user interface for Maxima 
 Name:    wxMaxima
 Version: 0.8.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv2+
 Group:   Applications/Engineering
@@ -20,15 +20,19 @@ ExclusiveArch: %{ix86} x86_64 sparcv9
 ExclusiveArch: %{ix86} x86_64 ppc sparcv9
 %endif
 
-Provides: wxmaxima = %{version}-%{release}
-
-Requires: maxima >= 5.20
-
 BuildRequires: desktop-file-utils
 BuildRequires: wxGTK-devel
 BuildRequires: libxml2-devel
 BuildRequires: ImageMagick
 BuildRequires: sed
+
+Provides: wxmaxima = %{version}-%{release}
+
+%if 0%{?fedora} > 11
+Requires: jsmath-fonts
+%endif
+Requires: maxima >= 5.20
+
 
 %description
 A Graphical user interface for the computer algebra system
@@ -101,6 +105,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &> /dev/null || :
 
 
 %changelog
+* Sun Mar 21 2010 Rex Dieter <rdieter@fedoraproject.org> - 0.8.4-2
+- Requires: jsmath-fonts (f12+)
+
 * Tue Dec 22 2009 Rex Dieter <rdieter@fedoraproject.org> - 0.8.4-1
 - wxMaxima-0.8.4
 
