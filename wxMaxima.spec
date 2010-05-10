@@ -3,8 +3,8 @@
 
 Summary: Graphical user interface for Maxima 
 Name:    wxMaxima
-Version: 0.8.4
-Release: 2%{?dist}
+Version: 0.8.5
+Release: 1%{?dist}
 
 License: GPLv2+
 Group:   Applications/Engineering
@@ -12,13 +12,7 @@ URL:     http://wxmaxima.sourceforge.net/
 Source0: http://downloads.sourceforge.net/sourceforge/wxmaxima/wxMaxima-%{version}.tar.gz 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-# Deployable only where maxima exsists.
-%if 0%{?fedora} > 8
-# reinclude ppc when fixed: http://bugzilla.redhat.com/448734
-ExclusiveArch: %{ix86} x86_64 sparcv9
-%else
 ExclusiveArch: %{ix86} x86_64 ppc sparcv9
-%endif
 
 BuildRequires: desktop-file-utils
 BuildRequires: wxGTK-devel
@@ -105,6 +99,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &> /dev/null || :
 
 
 %changelog
+* Mon May 10 2010 Rex Dieter <rdieter@fedoraproject.org> - 0.8.5-1
+- wxMaxima-0.8.5 
+
 * Sun Mar 21 2010 Rex Dieter <rdieter@fedoraproject.org> - 0.8.4-2
 - Requires: jsmath-fonts (f12+)
 
