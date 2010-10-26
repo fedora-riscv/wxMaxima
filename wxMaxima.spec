@@ -3,8 +3,8 @@
 
 Summary: Graphical user interface for Maxima 
 Name:    wxMaxima
-Version: 0.8.5
-Release: 2%{?dist}
+Version: 0.8.6
+Release: 1%{?dist}
 
 License: GPLv2+
 Group:   Applications/Engineering
@@ -99,6 +99,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &> /dev/null || :
 
 
 %changelog
+* Tue Oct 26 2010 Rex Dieter <rdieter@fedoraproject.org> - 0.8.6-1
+- wxMaxima-0.8.6
+
 * Wed Jul 14 2010 Dan Horák <dan@danny.cz> - 0.8.5-2
 - rebuilt against wxGTK-2.8.11-2
 
