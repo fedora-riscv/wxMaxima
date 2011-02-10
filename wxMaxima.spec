@@ -3,7 +3,7 @@
 
 Summary: Graphical user interface for Maxima 
 Name:    wxMaxima
-Version: 0.8.4
+Version: 0.8.7
 Release: 1%{?dist}
 
 License: GPLv2+
@@ -12,23 +12,21 @@ URL:     http://wxmaxima.sourceforge.net/
 Source0: http://downloads.sourceforge.net/sourceforge/wxmaxima/wxMaxima-%{version}.tar.gz 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-# Deployable only where maxima exsists.
-%if 0%{?fedora} > 8
-# reinclude ppc when fixed: http://bugzilla.redhat.com/448734
-ExclusiveArch: %{ix86} x86_64 sparcv9
-%else
 ExclusiveArch: %{ix86} x86_64 ppc sparcv9
-%endif
-
-Provides: wxmaxima = %{version}-%{release}
-
-Requires: maxima >= 5.20
 
 BuildRequires: desktop-file-utils
 BuildRequires: wxGTK-devel
 BuildRequires: libxml2-devel
 BuildRequires: ImageMagick
 BuildRequires: sed
+
+Provides: wxmaxima = %{version}-%{release}
+
+%if 0%{?fedora} > 11
+Requires: jsmath-fonts
+%endif
+Requires: maxima >= 5.20
+
 
 %description
 A Graphical user interface for the computer algebra system
@@ -101,6 +99,24 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &> /dev/null || :
 
 
 %changelog
+* Thu Feb 10 2011 Rex Dieter <rdieter@fedoraproject.org> 0.8.7-1
+- wxMaxima-0.8.7
+
+* Mon Feb 07 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.8.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
+
+* Tue Oct 26 2010 Rex Dieter <rdieter@fedoraproject.org> - 0.8.6-1
+- wxMaxima-0.8.6
+
+* Wed Jul 14 2010 Dan Horák <dan@danny.cz> - 0.8.5-2
+- rebuilt against wxGTK-2.8.11-2
+
+* Mon May 10 2010 Rex Dieter <rdieter@fedoraproject.org> - 0.8.5-1
+- wxMaxima-0.8.5 
+
+* Sun Mar 21 2010 Rex Dieter <rdieter@fedoraproject.org> - 0.8.4-2
+- Requires: jsmath-fonts (f12+)
+
 * Tue Dec 22 2009 Rex Dieter <rdieter@fedoraproject.org> - 0.8.4-1
 - wxMaxima-0.8.4
 
