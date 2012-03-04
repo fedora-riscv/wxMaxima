@@ -3,16 +3,15 @@
 
 Summary: Graphical user interface for Maxima 
 Name:    wxMaxima
-Version: 11.08.0
-Release: 2%{?dist}
+Version: 12.01.0
+Release: 1%{?dist}
 
 License: GPLv2+
 Group:   Applications/Engineering
 URL:     http://wxmaxima.sourceforge.net/
 Source0: http://downloads.sourceforge.net/sourceforge/wxmaxima/wxMaxima-%{version}.tar.gz 
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-ExclusiveArch: %{ix86} x86_64 ppc sparcv9
+ExclusiveArch: %{ix86} x86_64 ppc sparcv9 %{arm}
 
 BuildRequires: desktop-file-utils
 BuildRequires: wxGTK-devel
@@ -22,9 +21,7 @@ BuildRequires: sed
 
 Provides: wxmaxima = %{version}-%{release}
 
-%if 0%{?fedora} > 11
 Requires: jsmath-fonts
-%endif
 Requires: maxima >= 5.20
 
 
@@ -46,8 +43,6 @@ make %{?_smp_mflags}
 
 
 %install
-rm -rf %{buildroot}
-
 make install DESTDIR=%{buildroot}
 
 desktop-file-install --vendor="" \
@@ -66,10 +61,6 @@ install -p -D -m644 data/wxmaxima-48x48.png %{buildroot}%{_datadir}/icons/hicolo
 
 # Unpackaged files
 rm -f %{buildroot}%{_datadir}/wxMaxima/{COPYING,README}
-
-
-%clean
-rm -rf %{buildroot}
 
 
 %post
@@ -99,6 +90,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &> /dev/null || :
 
 
 %changelog
+* Sun Mar  4 2012 Peter Robinson <pbrobinson@fedoraproject.org> - 12.01.0-1
+- 12.01.0
+
 * Sat Jan 14 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 11.08.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_17_Mass_Rebuild
 
