@@ -3,8 +3,8 @@
 
 Summary: Graphical user interface for Maxima 
 Name:    wxMaxima
-Version: 12.01.0
-Release: 2%{?dist}
+Version: 12.04.0
+Release: 1%{?dist}
 
 License: GPLv2+
 Group:   Applications/Engineering
@@ -23,7 +23,6 @@ Provides: wxmaxima = %{version}-%{release}
 
 Requires: jsmath-fonts
 Requires: maxima >= 5.20
-
 
 %description
 A Graphical user interface for the computer algebra system
@@ -77,7 +76,6 @@ fi
 update-desktop-database -q &> /dev/null
 gtk-update-icon-cache %{_datadir}/icons/hicolor &> /dev/null || :
 
-
 %files -f wxMaxima.lang
 %defattr(-,root,root,-)
 %doc AUTHORS COPYING README 
@@ -90,6 +88,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &> /dev/null || :
 
 
 %changelog
+* Sat Aug 04 2012 Rex Dieter <rdieter@fedoraproject.org> 12.04.0-1
+- 12.04.0
+
 * Sun Jul 22 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 12.01.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_18_Mass_Rebuild
 
