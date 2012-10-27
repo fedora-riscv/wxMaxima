@@ -3,7 +3,7 @@
 
 Summary: Graphical user interface for Maxima 
 Name:    wxMaxima
-Version: 12.04.0
+Version: 12.09.0
 Release: 1%{?dist}
 
 License: GPLv2+
@@ -34,9 +34,7 @@ Maxima using wxWidgets.
 
 
 %build
-%configure \
-  --enable-dnd \
-  --enable-printing
+%configure
 
 make %{?_smp_mflags}
 
@@ -88,6 +86,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &> /dev/null || :
 
 
 %changelog
+* Sat Oct 27 2012 Rex Dieter <rdieter@fedoraproject.org> 12.09.0-1
+- 12.09.0
+
 * Sat Aug 04 2012 Rex Dieter <rdieter@fedoraproject.org> 12.04.0-1
 - 12.04.0
 
