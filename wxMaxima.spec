@@ -3,8 +3,8 @@
 
 Summary: Graphical user interface for Maxima 
 Name:    wxMaxima
-Version: 12.09.0
-Release: 3%{?dist}
+Version: 13.04.2
+Release: 1%{?dist}
 
 License: GPLv2+
 Group:   Applications/Engineering
@@ -22,7 +22,7 @@ BuildRequires: sed
 Provides: wxmaxima = %{version}-%{release}
 
 Requires: jsmath-fonts
-Requires: maxima >= 5.20
+Requires: maxima >= 5.30
 
 %description
 A Graphical user interface for the computer algebra system
@@ -31,6 +31,8 @@ Maxima using wxWidgets.
 
 %prep
 %setup -q
+
+sed -i.orig -e "s|^Icon=wxmaxima.png|Icon=wxmaxima|" wxmaxima.desktop
 
 
 %build
@@ -86,6 +88,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &> /dev/null || :
 
 
 %changelog
+* Fri Sep 27 2013 Rex Dieter <rdieter@fedoraproject.org> 13.04.2-1
+- 13.04.2
+
 * Sun Aug 04 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 12.09.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
 
