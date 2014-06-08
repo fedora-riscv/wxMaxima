@@ -4,7 +4,7 @@
 Summary: Graphical user interface for Maxima 
 Name:    wxMaxima
 Version: 13.04.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv2+
 Group:   Applications/Engineering
@@ -88,6 +88,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &> /dev/null || :
 
 
 %changelog
+* Sun Jun 08 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 13.04.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
+
 * Fri Sep 27 2013 Rex Dieter <rdieter@fedoraproject.org> 13.04.2-1
 - 13.04.2
 
