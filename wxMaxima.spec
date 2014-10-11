@@ -1,5 +1,9 @@
 
 # Fedora review: http://bugzilla.redhat.com/204832
+
+# trim changelog included in binary rpms
+%global _changelog_trimtime %(date +%s -d "1 year ago")
+
 Summary: Graphical user interface for Maxima 
 Name:    wxMaxima
 Version: 14.09.0
