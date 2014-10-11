@@ -1,15 +1,14 @@
 
 # Fedora review: http://bugzilla.redhat.com/204832
-
 Summary: Graphical user interface for Maxima 
 Name:    wxMaxima
-Version: 13.04.2
-Release: 3%{?dist}
+Version: 14.09.0
+Release: 1%{?dist}
 
 License: GPLv2+
 Group:   Applications/Engineering
 URL:     http://wxmaxima.sourceforge.net/
-Source0: http://downloads.sourceforge.net/sourceforge/wxmaxima/wxMaxima-%{version}.tar.gz 
+Source0: http://downloads.sourceforge.net/wxmaxima/wxmaxima-%{version}.tar.gz
 
 ExclusiveArch: %{ix86} x86_64 ppc sparcv9 %{arm}
 
@@ -30,7 +29,7 @@ Maxima using wxWidgets.
 
 
 %prep
-%setup -q
+%setup -q -n wxmaxima-%{version}
 
 sed -i.orig -e "s|^Icon=wxmaxima.png|Icon=wxmaxima|" wxmaxima.desktop
 
@@ -47,8 +46,6 @@ make install DESTDIR=%{buildroot}
 desktop-file-install --vendor="" \
   --dir %{buildroot}%{_datadir}/applications \
   --add-category="Development" \
-  --add-category="Math" \
-  --remove-category="Utility" \
   wxmaxima.desktop 
 
 # app icon
@@ -88,6 +85,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &> /dev/null || :
 
 
 %changelog
+* Sat Oct 11 2014 Rex Dieter <rdieter@fedoraproject.org> 14.09-1
+- 14.09
+
 * Mon Aug 18 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 13.04.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_21_22_Mass_Rebuild
 
