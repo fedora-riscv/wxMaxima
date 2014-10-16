@@ -7,14 +7,14 @@
 Summary: Graphical user interface for Maxima 
 Name:    wxMaxima
 Version: 14.09.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv2+
 Group:   Applications/Engineering
 URL:     http://wxmaxima.sourceforge.net/
 Source0: http://downloads.sourceforge.net/wxmaxima/wxmaxima-%{version}.tar.gz
 
-ExclusiveArch: %{ix86} x86_64 ppc sparcv9 %{arm}
+ExclusiveArch: %{ix86} x86_64 ppc sparcv9 %{arm} %{power64}
 
 BuildRequires: desktop-file-utils
 BuildRequires: wxGTK-devel
@@ -89,6 +89,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &> /dev/null || :
 
 
 %changelog
+* Thu Oct 16 2014 Karsten Hopp <karsten@redhat.com> 14.09.0-2
+- enable build on ppc64*
+
 * Sat Oct 11 2014 Rex Dieter <rdieter@fedoraproject.org> 14.09-1
 - 14.09
 
