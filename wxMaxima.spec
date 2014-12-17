@@ -1,6 +1,4 @@
 
-# Fedora review: http://bugzilla.redhat.com/204832
-
 # trim changelog included in binary rpms
 %global _changelog_trimtime %(date +%s -d "1 year ago")
 
@@ -60,7 +58,7 @@ install -p -D -m644 data/wxmaxima-48x48.png %{buildroot}%{_datadir}/icons/hicolo
 %find_lang wxMaxima 
 
 # Unpackaged files
-rm -f %{buildroot}%{_datadir}/wxMaxima/{COPYING,README}
+rm -fv %{buildroot}%{_datadir}/wxMaxima/{COPYING,README}
 
 
 %post
