@@ -5,7 +5,7 @@
 Summary: Graphical user interface for Maxima 
 Name:    wxMaxima
 Version: 14.09.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: GPLv2+
 Group:   Applications/Engineering
@@ -87,6 +87,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &> /dev/null || :
 
 
 %changelog
+* Tue Mar 03 2015 Rex Dieter <rdieter@fedoraproject.org> 14.09.0-3
+- rebuild for gcc5 (#1198392)
+
 * Thu Oct 16 2014 Karsten Hopp <karsten@redhat.com> 14.09.0-2
 - enable build on ppc64*
 
