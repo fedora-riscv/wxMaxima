@@ -25,6 +25,8 @@ BuildRequires: ImageMagick
 
 Provides: wxmaxima = %{version}-%{release}
 
+Requires(post): /sbin/install-info
+Requires(postun): /sbin/install-info
 Requires: jsmath-fonts
 Requires: maxima >= 5.30
 
@@ -75,10 +77,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/wxmaxima.a
 
 
 %post
+/sbin/install-info %{_infodir}/wxmaxima.info %{_infodir}/dir ||:
 touch --no-create %{_datadir}/icons/hicolor &> /dev/null || :
 
 %postun
 if [ $1 -eq 0 ] ; then
+  /sbin/install-info --delete %{_infodir}/wxmaxima.info %{_infodir}/dir ||:
   touch --no-create %{_datadir}/icons/hicolor &> /dev/null
   gtk-update-icon-cache %{_datadir}/icons/hicolor &> /dev/null || :
   update-desktop-database -q &> /dev/null
