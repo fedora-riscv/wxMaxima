@@ -4,21 +4,24 @@
 
 Summary: Graphical user interface for Maxima 
 Name:    wxMaxima
-Version: 14.09.0
-Release: 3%{?dist}
+Version: 15.04.0
+Release: 1%{?dist}
 
 License: GPLv2+
 Group:   Applications/Engineering
 URL:     http://wxmaxima.sourceforge.net/
 Source0: http://downloads.sourceforge.net/wxmaxima/wxmaxima-%{version}.tar.gz
+# replace poor upstream one for now
+Source1: wxmaxima.desktop
 
 ExclusiveArch: %{ix86} x86_64 ppc sparcv9 %{arm} %{power64}
 
 BuildRequires: desktop-file-utils
-BuildRequires: wxGTK-devel
+BuildRequires: doxygen
+BuildRequires: wxGTK3-devel
+BuildRequires: libappstream-glib
 BuildRequires: libxml2-devel
 BuildRequires: ImageMagick
-BuildRequires: sed
 
 Provides: wxmaxima = %{version}-%{release}
 
@@ -33,11 +36,10 @@ Maxima using wxWidgets.
 %prep
 %setup -q -n wxmaxima-%{version}
 
-sed -i.orig -e "s|^Icon=wxmaxima.png|Icon=wxmaxima|" wxmaxima.desktop
-
 
 %build
-%configure
+%configure \
+  --with-wx-config=/usr/bin/wx-config-3.0
 
 make %{?_smp_mflags}
 
@@ -47,18 +49,29 @@ make install DESTDIR=%{buildroot}
 
 desktop-file-install --vendor="" \
   --dir %{buildroot}%{_datadir}/applications \
-  --add-category="Development" \
-  wxmaxima.desktop 
+  %{SOURCE1}
 
 # app icon
+install -p -D -m644 data/wxmaxima.svg %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/wxmaxima.svg
 install -p -D -m644 data/wxmaxima.png %{buildroot}%{_datadir}/icons/hicolor/128x128/apps/wxmaxima.png
 convert -resize 48x48 data/wxmaxima.png data/wxmaxima-48x48.png
 install -p -D -m644 data/wxmaxima-48x48.png %{buildroot}%{_datadir}/icons/hicolor/48x48/apps/wxmaxima.png
+
+# mime icons
+mkdir -p %{buildroot}%{_datadir}/icons/hicolor/scalable/mimetypes/
+install -p -m644 data/text-x-wx*.svg %{buildroot}%{_datadir}/icons/hicolor/scalable/mimetypes/
 
 %find_lang wxMaxima 
 
 # Unpackaged files
 rm -fv %{buildroot}%{_datadir}/wxMaxima/{COPYING,README}
+rm -fv %{buildroot}%{_datadir}/applications/wxMaxima.desktop
+rm -fv %{buildroot}%{_datadir}/info/dir
+rm -rfv %{buildroot}%{_datadir}/pixmaps/
+
+
+%check
+appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/wxmaxima.appdata.xml ||:
 
 
 %post
@@ -66,27 +79,37 @@ touch --no-create %{_datadir}/icons/hicolor &> /dev/null || :
 
 %postun
 if [ $1 -eq 0 ] ; then
-  update-desktop-database -q &> /dev/null
   touch --no-create %{_datadir}/icons/hicolor &> /dev/null
   gtk-update-icon-cache %{_datadir}/icons/hicolor &> /dev/null || :
+  update-desktop-database -q &> /dev/null
+  touch --no-create %{_datadir}/mime/packages &> /dev/null || :
+  update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
 fi
 
 %posttrans
-update-desktop-database -q &> /dev/null
 gtk-update-icon-cache %{_datadir}/icons/hicolor &> /dev/null || :
+update-desktop-database -q &> /dev/null
+update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
 
 %files -f wxMaxima.lang
-%defattr(-,root,root,-)
-%doc AUTHORS COPYING README 
-# 0-length docs
-#doc ChangeLog NEWS
+%doc AUTHORS ChangeLog README
+%license COPYING
 %{_bindir}/wxmaxima
 %{_datadir}/wxMaxima/
 %{_datadir}/icons/hicolor/*/*/*
 %{_datadir}/applications/wxmaxima.desktop
+%{_datadir}/appdata/wxmaxima.appdata.xml
+%{_datadir}/info/wxmaxima.info*
+%{_datadir}/mime/packages/x-wxmathml.xml
+%{_datadir}/mime/packages/x-wxmaxima-batch.xml
+%{_docdir}/wxmaxima/
+%{_mandir}/man1/wxmaxima.1*
 
 
 %changelog
+* Fri May 01 2015 Rex Dieter <rdieter@fedoraproject.org> 15.04.0-1
+- 15.04.0
+
 * Tue Mar 03 2015 Rex Dieter <rdieter@fedoraproject.org> 14.09.0-3
 - rebuild for gcc5 (#1198392)
 

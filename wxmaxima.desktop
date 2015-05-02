@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=wxMaxima
+Comment=Perform symbolic and numeric calculations using Maxima
+Comment[uk]=Виконання аналітичних перетворень та обчислень за допомогою Maxima
+Exec=wxmaxima %f
+Icon=wxmaxima
+Terminal=false
+Type=Application
+Categories=Education;Science;Math;Development;
+MimeType=text-x-wxmathml;text/x-wxmaxima-batch;
