@@ -21,7 +21,7 @@ BuildRequires: doxygen
 BuildRequires: wxGTK3-devel
 BuildRequires: libappstream-glib
 BuildRequires: libxml2-devel
-BuildRequires: ImageMagick
+BuildRequires: GraphicsMagick
 
 Provides: wxmaxima = %{version}-%{release}
 
@@ -56,7 +56,7 @@ desktop-file-install --vendor="" \
 # app icon
 install -p -D -m644 data/wxmaxima.svg %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/wxmaxima.svg
 install -p -D -m644 data/wxmaxima.png %{buildroot}%{_datadir}/icons/hicolor/128x128/apps/wxmaxima.png
-convert -resize 48x48 data/wxmaxima.png data/wxmaxima-48x48.png
+gm convert -resize 48x48 data/wxmaxima.png data/wxmaxima-48x48.png
 install -p -D -m644 data/wxmaxima-48x48.png %{buildroot}%{_datadir}/icons/hicolor/48x48/apps/wxmaxima.png
 
 # mime icons
