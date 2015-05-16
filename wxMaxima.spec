@@ -5,7 +5,7 @@
 Summary: Graphical user interface for Maxima 
 Name:    wxMaxima
 Version: 15.04.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: GPLv2+
 Group:   Applications/Engineering
@@ -26,7 +26,7 @@ BuildRequires: GraphicsMagick
 Provides: wxmaxima = %{version}-%{release}
 
 Requires(post): /sbin/install-info
-Requires(postun): /sbin/install-info
+Requires(preun): /sbin/install-info
 Requires: jsmath-fonts
 Requires: maxima >= 5.30
 
@@ -81,9 +81,13 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/wxmaxima.desktop
 /sbin/install-info %{_infodir}/wxmaxima.info %{_infodir}/dir ||:
 touch --no-create %{_datadir}/icons/hicolor &> /dev/null || :
 
-%postun
+%preun
 if [ $1 -eq 0 ] ; then
   /sbin/install-info --delete %{_infodir}/wxmaxima.info %{_infodir}/dir ||:
+fi
+
+%postun
+if [ $1 -eq 0 ] ; then
   touch --no-create %{_datadir}/icons/hicolor &> /dev/null
   gtk-update-icon-cache %{_datadir}/icons/hicolor &> /dev/null || :
   update-desktop-database -q &> /dev/null
@@ -112,6 +116,9 @@ update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
 
 
 %changelog
+* Sat May 16 2015 Rex Dieter <rdieter@fedoraproject.org> 15.04.0-3
+- uninstallation refers to files that do not exist (#1222229)
+
 * Sat May 16 2015 Rex Dieter <rdieter@fedoraproject.org> 15.04.0-2
 - invalid MIME type and no default file association (#1222224)
 
