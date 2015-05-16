@@ -5,7 +5,7 @@
 Summary: Graphical user interface for Maxima 
 Name:    wxMaxima
 Version: 15.04.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv2+
 Group:   Applications/Engineering
@@ -73,7 +73,8 @@ rm -rfv %{buildroot}%{_datadir}/pixmaps/
 
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/wxmaxima.appdata.xml ||:
+appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/wxmaxima.appdata.xml
+desktop-file-validate %{buildroot}%{_datadir}/applications/wxmaxima.desktop
 
 
 %post
@@ -111,6 +112,9 @@ update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
 
 
 %changelog
+* Sat May 16 2015 Rex Dieter <rdieter@fedoraproject.org> 15.04.0-2
+- invalid MIME type and no default file association (#1222224)
+
 * Fri May 01 2015 Rex Dieter <rdieter@fedoraproject.org> 15.04.0-1
 - 15.04.0
 

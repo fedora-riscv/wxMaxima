@@ -7,4 +7,4 @@ Icon=wxmaxima
 Terminal=false
 Type=Application
 Categories=Education;Science;Math;Development;
-MimeType=text-x-wxmathml;text/x-wxmaxima-batch;
+MimeType=text/x-wxmathml;text/x-wxmaxima-batch;
