@@ -5,7 +5,7 @@
 Summary: Graphical user interface for Maxima 
 Name:    wxMaxima
 Version: 15.04.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 License: GPLv2+
 Group:   Applications/Engineering
@@ -116,6 +116,9 @@ update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
 
 
 %changelog
+* Fri Jun 19 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 15.04.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
+
 * Sat May 16 2015 Rex Dieter <rdieter@fedoraproject.org> 15.04.0-3
 - uninstallation refers to files that do not exist (#1222229)
 
