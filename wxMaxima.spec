@@ -14,7 +14,7 @@ Source0: http://downloads.sourceforge.net/wxmaxima/wxmaxima-%{version}.tar.gz
 # replace poor upstream one for now
 Source1: wxmaxima.desktop
 
-ExclusiveArch: %{ix86} x86_64 ppc sparcv9 %{arm} %{power64}
+ExclusiveArch: %{arm} %{ix86} x86_64 aarch64 ppc sparcv9 %{power64}
 
 BuildRequires: desktop-file-utils
 BuildRequires: doxygen
@@ -120,6 +120,7 @@ update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
 %changelog
 * Mon Sep 14 2015 Rex Dieter <rdieter@fedoraproject.org> 15.08.2-1
 - 15.08.2 (#1259888)
+- wxMaxima: Does not support aarch64 (#926734)
 
 * Fri Jun 19 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 15.04.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
