@@ -4,8 +4,8 @@
 
 Summary: Graphical user interface for Maxima 
 Name:    wxMaxima
-Version: 15.04.0
-Release: 4%{?dist}
+Version: 15.08.2
+Release: 1%{?dist}
 
 License: GPLv2+
 Group:   Applications/Engineering
@@ -70,6 +70,7 @@ rm -fv %{buildroot}%{_datadir}/wxMaxima/{COPYING,README}
 rm -fv %{buildroot}%{_datadir}/applications/wxMaxima.desktop
 rm -fv %{buildroot}%{_datadir}/info/dir
 rm -rfv %{buildroot}%{_datadir}/pixmaps/
+rm -rfv %{buildroot}%{_datadir}/menu
 
 
 %check
@@ -108,6 +109,7 @@ update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
 %{_datadir}/icons/hicolor/*/*/*
 %{_datadir}/applications/wxmaxima.desktop
 %{_datadir}/appdata/wxmaxima.appdata.xml
+%{_datadir}/bash-completion/completions/wxmaxima
 %{_datadir}/info/wxmaxima.info*
 %{_datadir}/mime/packages/x-wxmathml.xml
 %{_datadir}/mime/packages/x-wxmaxima-batch.xml
@@ -116,6 +118,9 @@ update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
 
 
 %changelog
+* Mon Sep 14 2015 Rex Dieter <rdieter@fedoraproject.org> 15.08.2-1
+- 15.08.2 (#1259888)
+
 * Fri Jun 19 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 15.04.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
 
