@@ -4,8 +4,8 @@
 
 Summary: Graphical user interface for Maxima 
 Name:    wxMaxima
-Version: 15.08.2
-Release: 2%{?dist}
+Version: 16.04.2
+Release: 1%{?dist}
 
 License: GPLv2+
 Group:   Applications/Engineering
@@ -14,7 +14,8 @@ Source0: http://downloads.sourceforge.net/wxmaxima/wxmaxima-%{version}.tar.gz
 # replace poor upstream one for now
 Source1: wxmaxima.desktop
 
-ExclusiveArch: %{arm} %{ix86} x86_64 aarch64 ppc sparcv9 %{power64}
+# match archs maxima uses
+ExclusiveArch: %{arm} %{ix86} x86_64 aarch64 ppc sparcv9
 
 BuildRequires: desktop-file-utils
 BuildRequires: doxygen
@@ -118,6 +119,9 @@ update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
 
 
 %changelog
+* Mon Nov 07 2016 Rex Dieter <rdieter@fedoraproject.org> 16.04.2-1
+- 16.04.2, update archs to match maxima
+
 * Fri Feb 05 2016 Fedora Release Engineering <releng@fedoraproject.org> - 15.08.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
 
