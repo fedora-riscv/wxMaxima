@@ -5,7 +5,7 @@
 Summary: Graphical user interface for Maxima 
 Name:    wxMaxima
 Version: 16.04.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: GPLv2+
 Group:   Applications/Engineering
@@ -119,6 +119,9 @@ update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
 
 
 %changelog
+* Thu Jul 27 2017 Fedora Release Engineering <releng@fedoraproject.org> - 16.04.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
+
 * Sat Feb 11 2017 Fedora Release Engineering <releng@fedoraproject.org> - 16.04.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
 
