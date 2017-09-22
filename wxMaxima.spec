@@ -4,19 +4,18 @@
 
 Summary: Graphical user interface for Maxima 
 Name:    wxMaxima
-Version: 16.04.2
-Release: 4%{?dist}
+Version: 17.05.1
+Release: 1%{?dist}
 
 License: GPLv2+
 Group:   Applications/Engineering
-URL:     http://wxmaxima.sourceforge.net/
-Source0: http://downloads.sourceforge.net/wxmaxima/wxmaxima-%{version}.tar.gz
-# replace poor upstream one for now
-Source1: wxmaxima.desktop
+URL:     http://andrejv.github.io/wxmaxima/
+Source0: https://github.com/andrejv/wxmaxima/archive/Version-%{version}.tar.gz
 
 # match archs maxima uses
 ExclusiveArch: %{arm} %{ix86} x86_64 aarch64 ppc sparcv9
 
+BuildRequires: cmake
 BuildRequires: desktop-file-utils
 BuildRequires: doxygen
 BuildRequires: wxGTK3-devel
@@ -37,46 +36,52 @@ Maxima using wxWidgets.
 
 
 %prep
-%setup -q -n wxmaxima-%{version}
+%setup -q -n wxmaxima-Version-%{version}
 
 
 %build
-%configure \
-  --with-wx-config=/usr/bin/wx-config-3.0
+mkdir %{_target_platform}
+pushd %{_target_platform}
+%cmake ..
+popd
 
-make %{?_smp_mflags}
+make %{?_smp_mflags} -C %{_target_platform}
 
 
 %install
-make install DESTDIR=%{buildroot}
-
-desktop-file-install --vendor="" \
-  --dir %{buildroot}%{_datadir}/applications \
-  %{SOURCE1}
+make install DESTDIR=%{buildroot} -C %{_target_platform}
 
 # app icon
-install -p -D -m644 data/wxmaxima.svg %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/wxmaxima.svg
-install -p -D -m644 data/wxmaxima.png %{buildroot}%{_datadir}/icons/hicolor/128x128/apps/wxmaxima.png
-gm convert -resize 48x48 data/wxmaxima.png data/wxmaxima-48x48.png
-install -p -D -m644 data/wxmaxima-48x48.png %{buildroot}%{_datadir}/icons/hicolor/48x48/apps/wxmaxima.png
+mkdir -p %{buildroot}%{_datadir}/icons/hicolor/{scalable,48x48,64x64,128x128}/apps/
+cp -alf \
+  %{buildroot}%{_datadir}/pixmaps/wxmaxima.svg \
+  %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/
+cp -alf \
+  %{buildroot}%{_datadir}/pixmaps/wxmaxima.png \
+  %{buildroot}%{_datadir}/icons/hicolor/128x128/apps/
+gm convert -resize 64x64 \
+  %{buildroot}%{_datadir}/icons/hicolor/128x128/apps/wxmaxima.png \
+  %{buildroot}%{_datadir}/icons/hicolor/64x64/apps/wxmaxima.png
+gm convert -resize 48x48 \
+  %{buildroot}%{_datadir}/icons/hicolor/128x128/apps/wxmaxima.png \
+  %{buildroot}%{_datadir}/icons/hicolor/48x48/apps/wxmaxima.png
 
 # mime icons
 mkdir -p %{buildroot}%{_datadir}/icons/hicolor/scalable/mimetypes/
-install -p -m644 data/text-x-wx*.svg %{buildroot}%{_datadir}/icons/hicolor/scalable/mimetypes/
+cp -alf  %{buildroot}%{_datadir}/pixmaps/text-x-wx*.svg %{buildroot}%{_datadir}/icons/hicolor/scalable/mimetypes/
 
 %find_lang wxMaxima 
 
 # Unpackaged files
 rm -fv %{buildroot}%{_datadir}/wxMaxima/{COPYING,README}
-rm -fv %{buildroot}%{_datadir}/applications/wxMaxima.desktop
 rm -fv %{buildroot}%{_datadir}/info/dir
 rm -rfv %{buildroot}%{_datadir}/pixmaps/
 rm -rfv %{buildroot}%{_datadir}/menu
 
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/wxmaxima.appdata.xml
-desktop-file-validate %{buildroot}%{_datadir}/applications/wxmaxima.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/wxMaxima.appdata.xml
+desktop-file-validate %{buildroot}%{_datadir}/applications/wxMaxima.desktop
 
 
 %post
@@ -108,10 +113,10 @@ update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
 %{_bindir}/wxmaxima
 %{_datadir}/wxMaxima/
 %{_datadir}/icons/hicolor/*/*/*
-%{_datadir}/applications/wxmaxima.desktop
-%{_datadir}/appdata/wxmaxima.appdata.xml
+%{_datadir}/applications/wxMaxima.desktop
+%{_datadir}/appdata/wxMaxima.appdata.xml
 %{_datadir}/bash-completion/completions/wxmaxima
-%{_datadir}/info/wxmaxima.info*
+#{_datadir}/info/wxmaxima.info*
 %{_datadir}/mime/packages/x-wxmathml.xml
 %{_datadir}/mime/packages/x-wxmaxima-batch.xml
 %{_docdir}/wxmaxima/
@@ -119,6 +124,9 @@ update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
 
 
 %changelog
+* Fri Sep 22 2017 Rex Dieter <rdieter@fedoraproject.org> - 17.05.1-1
+- 17.05.1, cmake buildsys
+
 * Thu Aug 03 2017 Fedora Release Engineering <releng@fedoraproject.org> - 16.04.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
 
