@@ -18,10 +18,11 @@ ExclusiveArch: %{arm} %{ix86} x86_64 aarch64 ppc sparcv9
 BuildRequires: cmake
 BuildRequires: desktop-file-utils
 BuildRequires: doxygen
-BuildRequires: wxGTK3-devel
+BuildRequires: gettext
+BuildRequires: GraphicsMagick
 BuildRequires: libappstream-glib
 BuildRequires: libxml2-devel
-BuildRequires: GraphicsMagick
+BuildRequires: wxGTK3-devel
 
 Provides: wxmaxima = %{version}-%{release}
 
