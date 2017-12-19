@@ -4,7 +4,7 @@
 
 Summary: Graphical user interface for Maxima 
 Name:    wxMaxima
-Version: 17.10.0
+Version: 17.10.1
 Release: 1%{?dist}
 
 License: GPLv2+
@@ -125,6 +125,9 @@ update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
 
 
 %changelog
+* Tue Dec 19 2017 Rex Dieter <rdieter@fedoraproject.org> - 17.10.1-1
+- 17.10.1
+
 * Sat Oct 21 2017 Rex Dieter <rdieter@fedoraproject.org> - 17.10.0-1
 - 17.10.0
 
