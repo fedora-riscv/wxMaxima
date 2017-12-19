@@ -81,7 +81,7 @@ rm -rfv %{buildroot}%{_datadir}/menu
 
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/wxMaxima.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/wxMaxima.appdata.xml
 desktop-file-validate %{buildroot}%{_datadir}/applications/wxMaxima.desktop
 
 
@@ -115,7 +115,7 @@ update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
 %{_datadir}/wxMaxima/
 %{_datadir}/icons/hicolor/*/*/*
 %{_datadir}/applications/wxMaxima.desktop
-%{_datadir}/appdata/wxMaxima.appdata.xml
+%{_datadir}/metainfo/wxMaxima.appdata.xml
 %{_datadir}/bash-completion/completions/wxmaxima
 #{_datadir}/info/wxmaxima.info*
 %{_datadir}/mime/packages/x-wxmathml.xml
