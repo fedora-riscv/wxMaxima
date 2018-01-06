@@ -5,7 +5,7 @@
 Summary: Graphical user interface for Maxima 
 Name:    wxMaxima
 Version: 17.10.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv2+
 Group:   Applications/Engineering
@@ -87,26 +87,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/wxMaxima.desktop
 
 %post
 /sbin/install-info %{_infodir}/wxmaxima.info %{_infodir}/dir ||:
-touch --no-create %{_datadir}/icons/hicolor &> /dev/null || :
 
 %preun
 if [ $1 -eq 0 ] ; then
   /sbin/install-info --delete %{_infodir}/wxmaxima.info %{_infodir}/dir ||:
 fi
 
-%postun
-if [ $1 -eq 0 ] ; then
-  touch --no-create %{_datadir}/icons/hicolor &> /dev/null
-  gtk-update-icon-cache %{_datadir}/icons/hicolor &> /dev/null || :
-  update-desktop-database -q &> /dev/null
-  touch --no-create %{_datadir}/mime/packages &> /dev/null || :
-  update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
-fi
-
-%posttrans
-gtk-update-icon-cache %{_datadir}/icons/hicolor &> /dev/null || :
-update-desktop-database -q &> /dev/null
-update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
 
 %files -f wxMaxima.lang
 %doc AUTHORS ChangeLog README
@@ -125,6 +111,9 @@ update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
 
 
 %changelog
+* Sat Jan 06 2018 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 17.10.1-2
+- Remove obsolete scriptlets
+
 * Tue Dec 19 2017 Rex Dieter <rdieter@fedoraproject.org> - 17.10.1-1
 - 17.10.1
 
