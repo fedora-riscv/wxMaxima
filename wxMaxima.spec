@@ -5,7 +5,7 @@
 Summary: Graphical user interface for Maxima 
 Name:    wxMaxima
 Version: 17.10.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: GPLv2+
 Group:   Applications/Engineering
@@ -111,6 +111,9 @@ fi
 
 
 %changelog
+* Fri Feb 09 2018 Fedora Release Engineering <releng@fedoraproject.org> - 17.10.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
+
 * Sat Jan 06 2018 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 17.10.1-2
 - Remove obsolete scriptlets
 
