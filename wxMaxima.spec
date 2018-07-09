@@ -15,6 +15,8 @@ Source0: https://github.com/andrejv/wxmaxima/archive/Version-%{version}.tar.gz
 # match archs maxima uses
 ExclusiveArch: %{arm} %{ix86} x86_64 aarch64 ppc sparcv9
 
+BuildRequires:  gcc
+BuildRequires:  gcc-c++
 BuildRequires: cmake
 BuildRequires: desktop-file-utils
 BuildRequires: doxygen
