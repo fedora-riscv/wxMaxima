@@ -4,8 +4,8 @@
 
 Summary: Graphical user interface for Maxima 
 Name:    wxMaxima
-Version: 17.10.1
-Release: 4%{?dist}
+Version: 18.02.0
+Release: 1%{?dist}
 
 License: GPLv2+
 Group:   Applications/Engineering
@@ -15,8 +15,8 @@ Source0: https://github.com/andrejv/wxmaxima/archive/Version-%{version}.tar.gz
 # match archs maxima uses
 ExclusiveArch: %{arm} %{ix86} x86_64 aarch64 ppc sparcv9
 
-BuildRequires:  gcc
-BuildRequires:  gcc-c++
+BuildRequires: gcc
+BuildRequires: gcc-c++
 BuildRequires: cmake
 BuildRequires: desktop-file-utils
 BuildRequires: doxygen
@@ -28,8 +28,6 @@ BuildRequires: wxGTK3-devel
 
 Provides: wxmaxima = %{version}-%{release}
 
-Requires(post): /sbin/install-info
-Requires(preun): /sbin/install-info
 Requires: jsmath-fonts
 Requires: maxima >= 5.30
 
@@ -39,7 +37,7 @@ Maxima using wxWidgets.
 
 
 %prep
-%setup -q -n wxmaxima-Version-%{version}
+%autosetup -n wxmaxima-Version-%{version} -p1
 
 
 %build
@@ -48,11 +46,11 @@ pushd %{_target_platform}
 %cmake ..
 popd
 
-make %{?_smp_mflags} -C %{_target_platform}
+%make_build -C %{_target_platform}
 
 
 %install
-make install DESTDIR=%{buildroot} -C %{_target_platform}
+make install/fast DESTDIR=%{buildroot} -C %{_target_platform}
 
 # app icon
 mkdir -p %{buildroot}%{_datadir}/icons/hicolor/{scalable,48x48,64x64,128x128}/apps/
@@ -77,23 +75,13 @@ cp -alf  %{buildroot}%{_datadir}/pixmaps/text-x-wx*.svg %{buildroot}%{_datadir}/
 
 # Unpackaged files
 rm -fv %{buildroot}%{_datadir}/wxMaxima/{COPYING,README}
-rm -fv %{buildroot}%{_datadir}/info/dir
 rm -rfv %{buildroot}%{_datadir}/pixmaps/
 rm -rfv %{buildroot}%{_datadir}/menu
 
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/wxMaxima.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/wxMaxima.appdata.xml
 desktop-file-validate %{buildroot}%{_datadir}/applications/wxMaxima.desktop
-
-
-%post
-/sbin/install-info %{_infodir}/wxmaxima.info %{_infodir}/dir ||:
-
-%preun
-if [ $1 -eq 0 ] ; then
-  /sbin/install-info --delete %{_infodir}/wxmaxima.info %{_infodir}/dir ||:
-fi
 
 
 %files -f wxMaxima.lang
@@ -103,9 +91,8 @@ fi
 %{_datadir}/wxMaxima/
 %{_datadir}/icons/hicolor/*/*/*
 %{_datadir}/applications/wxMaxima.desktop
-%{_datadir}/metainfo/wxMaxima.appdata.xml
+%{_metainfodir}/wxMaxima.appdata.xml
 %{_datadir}/bash-completion/completions/wxmaxima
-#{_datadir}/info/wxmaxima.info*
 %{_datadir}/mime/packages/x-wxmathml.xml
 %{_datadir}/mime/packages/x-wxmaxima-batch.xml
 %{_docdir}/wxmaxima/
@@ -113,6 +100,11 @@ fi
 
 
 %changelog
+* Mon Sep 24 2018 Rex Dieter <rdieter@fedoraproject.org> - 18.02.0-1
+- 18.02.0
+- drop references to now-absent texinfo content
+- .spec cosmetics, use %%autosetup %%make_build %%_metainfodir
+
 * Sat Jul 14 2018 Fedora Release Engineering <releng@fedoraproject.org> - 17.10.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
 
