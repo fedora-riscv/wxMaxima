@@ -5,11 +5,10 @@
 Summary: Graphical user interface for Maxima 
 Name:    wxMaxima
 Version: 18.02.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv2+
-Group:   Applications/Engineering
-URL:     http://andrejv.github.io/wxmaxima/
+URL:     http://wxmaxima-developers.github.io/wxmaxima/
 Source0: https://github.com/andrejv/wxmaxima/archive/Version-%{version}.tar.gz
 
 # match archs maxima uses
@@ -100,6 +99,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/wxMaxima.desktop
 
 
 %changelog
+* Wed Sep 26 2018 Rex Dieter <rdieter@fedoraproject.org> - 18.02.0-1
+- update URL, drop Group
+
 * Mon Sep 24 2018 Rex Dieter <rdieter@fedoraproject.org> - 18.02.0-1
 - 18.02.0
 - drop references to now-absent texinfo content
