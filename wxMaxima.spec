@@ -4,16 +4,17 @@
 
 Summary: Graphical user interface for Maxima 
 Name:    wxMaxima
-Version: 18.02.0
-Release: 2%{?dist}
+Version: 18.10.0
+Release: 1%{?dist}
 
 License: GPLv2+
 URL:     http://wxmaxima-developers.github.io/wxmaxima/
-Source0: https://github.com/andrejv/wxmaxima/archive/Version-%{version}.tar.gz
+Source0: https://github.com/wxMaxima-developers/wxmaxima/archive/Version-%{version}.tar.gz
 
 # match archs maxima uses
 ExclusiveArch: %{arm} %{ix86} x86_64 aarch64 ppc sparcv9
 
+BuildRequires: dos2unix
 BuildRequires: gcc
 BuildRequires: gcc-c++
 BuildRequires: cmake
@@ -37,6 +38,9 @@ Maxima using wxWidgets.
 
 %prep
 %autosetup -n wxmaxima-Version-%{version} -p1
+
+dos2unix data/wxMaxima.desktop
+desktop-file-validate data/wxMaxima.desktop
 
 
 %build
@@ -99,7 +103,8 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/wxMaxima.desktop
 
 
 %changelog
-* Wed Sep 26 2018 Rex Dieter <rdieter@fedoraproject.org> - 18.02.0-1
+* Wed Sep 26 2018 Rex Dieter <rdieter@fedoraproject.org> - 18.10.0-1
+- 18.10.0
 - update URL, drop Group
 
 * Mon Sep 24 2018 Rex Dieter <rdieter@fedoraproject.org> - 18.02.0-1
