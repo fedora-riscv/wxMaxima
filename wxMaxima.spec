@@ -4,7 +4,7 @@
 
 Summary: Graphical user interface for Maxima 
 Name:    wxMaxima
-Version: 18.10.1
+Version: 18.10.2
 Release: 1%{?dist}
 
 License: GPLv2+
@@ -103,6 +103,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/wxMaxima.desktop
 
 
 %changelog
+* Fri Nov 09 2018 Rex Dieter <rdieter@fedoraproject.org> - 18.10.2-1
+- 18.10.2
+
 * Fri Nov 09 2018 Rex Dieter <rdieter@fedoraproject.org> - 18.10.1-1
 - 18.10.1
 
