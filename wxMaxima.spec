@@ -2,9 +2,9 @@
 # trim changelog included in binary rpms
 %global _changelog_trimtime %(date +%s -d "1 year ago")
 
-Summary: Graphical user interface for Maxima 
+Summary: Graphical user interface for Maxima
 Name:    wxMaxima
-Version: 18.11.4
+Version: 18.12.0
 Release: 1%{?dist}
 
 License: GPLv2+
@@ -74,7 +74,7 @@ gm convert -resize 48x48 \
 mkdir -p %{buildroot}%{_datadir}/icons/hicolor/scalable/mimetypes/
 cp -alf  %{buildroot}%{_datadir}/pixmaps/text-x-wx*.svg %{buildroot}%{_datadir}/icons/hicolor/scalable/mimetypes/
 
-%find_lang wxMaxima 
+%find_lang wxMaxima
 
 # Unpackaged files
 rm -fv %{buildroot}%{_datadir}/wxMaxima/{COPYING,README}
@@ -103,6 +103,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/wxMaxima.desktop
 
 
 %changelog
+* Sat Dec 29 2018 José Matos <jamatos@fedoraproject.org> - 18.12.0-1
+- 18.12.0
+
 * Mon Nov 26 2018 Rex Dieter <rdieter@fedoraproject.org> - 18.11.4-1
 - 18.11.4
 
@@ -225,7 +228,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/wxMaxima.desktop
 - rebuilt against wxGTK-2.8.11-2
 
 * Mon May 10 2010 Rex Dieter <rdieter@fedoraproject.org> - 0.8.5-1
-- wxMaxima-0.8.5 
+- wxMaxima-0.8.5
 
 * Sun Mar 21 2010 Rex Dieter <rdieter@fedoraproject.org> - 0.8.4-2
 - Requires: jsmath-fonts (f12+)
@@ -251,7 +254,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/wxMaxima.desktop
 * Sat Apr 18 2009 Rex Dieter <rdieter@fedoraproject.org> - 0.8.1-1
 - wxMaxima-0.8.1
 
-* Fri Feb 27 2009 Rex Dieter <rdieter@fedoraproject.org> - 0.7.6-3 
+* Fri Feb 27 2009 Rex Dieter <rdieter@fedoraproject.org> - 0.7.6-3
 - ExclusiveArch: s/i386/%%ix86/
 
 * Wed Feb 25 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.7.6-2
@@ -267,7 +270,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/wxMaxima.desktop
 - wxMaxima-0.7.5
 - exclude ppc, f9+ (#448734)
 
-* Mon Feb 11 2008 Rex Dieter <rdieter@fedoraproject.org> 0.7.4-3 
+* Mon Feb 11 2008 Rex Dieter <rdieter@fedoraproject.org> 0.7.4-3
 - respin (gcc43)
 
 * Tue Dec 11 2007 Rex Dieter <rdieter[AT]fedoraproject.org> 0.7.4-2
