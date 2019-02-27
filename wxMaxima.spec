@@ -4,8 +4,8 @@
 
 Summary: Graphical user interface for Maxima
 Name:    wxMaxima
-Version: 18.12.0
-Release: 2%{?dist}
+Version: 19.02.2
+Release: 1%{?dist}
 
 License: GPLv2+
 URL:     http://wxmaxima-developers.github.io/wxmaxima/
@@ -103,6 +103,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/wxMaxima.desktop
 
 
 %changelog
+* Wed Feb 27 2019 José Matos <jamatos@fedoraproject.org> - 19.02.2-1
+- 19.02.2
+
 * Sun Feb 03 2019 Fedora Release Engineering <releng@fedoraproject.org> - 18.12.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
 
