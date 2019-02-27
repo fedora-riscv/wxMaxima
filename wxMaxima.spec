@@ -58,16 +58,16 @@ make install/fast DESTDIR=%{buildroot} -C %{_target_platform}
 # app icon
 mkdir -p %{buildroot}%{_datadir}/icons/hicolor/{scalable,48x48,64x64,128x128}/apps/
 cp -alf \
-  %{buildroot}%{_datadir}/pixmaps/wxmaxima.svg \
+  %{buildroot}%{_datadir}/pixmaps/io.github.wxmaxima_developers.wxmaxima.svg \
   %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/
 cp -alf \
-  %{buildroot}%{_datadir}/pixmaps/wxmaxima.png \
+  %{buildroot}%{_datadir}/pixmaps/io.github.wxmaxima_developers.wxmaxima.png \
   %{buildroot}%{_datadir}/icons/hicolor/128x128/apps/
 gm convert -resize 64x64 \
-  %{buildroot}%{_datadir}/icons/hicolor/128x128/apps/wxmaxima.png \
+  %{buildroot}%{_datadir}/icons/hicolor/128x128/apps/io.github.wxmaxima_developers.wxmaxima.png \
   %{buildroot}%{_datadir}/icons/hicolor/64x64/apps/wxmaxima.png
 gm convert -resize 48x48 \
-  %{buildroot}%{_datadir}/icons/hicolor/128x128/apps/wxmaxima.png \
+  %{buildroot}%{_datadir}/icons/hicolor/128x128/apps/io.github.wxmaxima_developers.wxmaxima.png \
   %{buildroot}%{_datadir}/icons/hicolor/48x48/apps/wxmaxima.png
 
 # mime icons
