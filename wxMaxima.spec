@@ -39,8 +39,8 @@ Maxima using wxWidgets.
 %prep
 %autosetup -n wxmaxima-Version-%{version} -p1
 
-dos2unix data/wxMaxima.desktop
-desktop-file-validate data/wxMaxima.desktop
+dos2unix data/io.github.wxmaxima_developers.wxMaxima.desktop
+desktop-file-validate data/io.github.wxmaxima_developers.wxMaxima.desktop
 
 
 %build
@@ -83,8 +83,8 @@ rm -rfv %{buildroot}%{_datadir}/menu
 
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/wxMaxima.appdata.xml
-desktop-file-validate %{buildroot}%{_datadir}/applications/wxMaxima.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/io.github.wxmaxima_developers.wxMaxima.appdata.xml
+desktop-file-validate %{buildroot}%{_datadir}/applications/io.github.wxmaxima_developers.wxMaxima.desktop
 
 
 %files -f wxMaxima.lang
@@ -93,8 +93,8 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/wxMaxima.desktop
 %{_bindir}/wxmaxima
 %{_datadir}/wxMaxima/
 %{_datadir}/icons/hicolor/*/*/*
-%{_datadir}/applications/wxMaxima.desktop
-%{_metainfodir}/wxMaxima.appdata.xml
+%{_datadir}/applications/io.github.wxmaxima_developers.wxMaxima.desktop
+%{_metainfodir}/io.github.wxmaxima_developers.wxMaxima.appdata.xml
 %{_datadir}/bash-completion/completions/wxmaxima
 %{_datadir}/mime/packages/x-wxmathml.xml
 %{_datadir}/mime/packages/x-wxmaxima-batch.xml
