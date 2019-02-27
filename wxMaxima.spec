@@ -64,11 +64,11 @@ cp -alf \
   %{buildroot}%{_datadir}/pixmaps/io.github.wxmaxima_developers.wxMaxima.png \
   %{buildroot}%{_datadir}/icons/hicolor/128x128/apps/
 gm convert -resize 64x64 \
-  %{buildroot}%{_datadir}/icons/hicolor/128x128/apps/io.github.wxaxima_developers.wxMaxima.png \
-  %{buildroot}%{_datadir}/icons/hicolor/64x64/apps/io.github.wxaxima_developers.wxMaxima.png
+  %{buildroot}%{_datadir}/icons/hicolor/128x128/apps/io.github.wxmaxima_developers.wxMaxima.png \
+  %{buildroot}%{_datadir}/icons/hicolor/64x64/apps/io.github.wxmaxima_developers.wxMaxima.png
 gm convert -resize 48x48 \
   %{buildroot}%{_datadir}/icons/hicolor/128x128/apps/io.github.wxmaxima_developers.wxMaxima.png \
-  %{buildroot}%{_datadir}/icons/hicolor/48x48/apps/io.github.wxaxima_developers.wxMaxima.png
+  %{buildroot}%{_datadir}/icons/hicolor/48x48/apps/io.github.wxmaxima_developers.wxMaxima.png
 
 # mime icons
 mkdir -p %{buildroot}%{_datadir}/icons/hicolor/scalable/mimetypes/
