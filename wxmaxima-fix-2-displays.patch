@@ -1,0 +1,102 @@
+From 12b0aa33a09879e33c05201cbf05dc0cf9c010c7 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Gunter=20K=C3=B6nigsmann?= <gunter@peterpall.de>
+Date: Wed, 6 Mar 2019 12:05:38 +0100
+Subject: [PATCH] This should fix the problem with GTK3, wxWidgets >3.1 and
+ multiple screens
+
+resolves #1092
+---
+ src/ConfigDialogue.cpp | 4 ++--
+ src/Configuration.h    | 6 ++----
+ src/DrawWiz.cpp        | 2 +-
+ src/TipOfTheDay.cpp    | 2 +-
+ src/ToolBar.cpp        | 4 ++--
+ 5 files changed, 8 insertions(+), 10 deletions(-)
+
+diff --git a/src/ConfigDialogue.cpp b/src/ConfigDialogue.cpp
+index dde29d69..439e642c 100644
+--- a/src/ConfigDialogue.cpp
++++ b/src/ConfigDialogue.cpp
+@@ -98,7 +98,7 @@ int ConfigDialogue::GetImageSize()
+   int display_idx = wxDisplay::GetFromWindow(GetParent());
+   if (display_idx < 0)
+     display_idx = 0;
+-  ppi = wxDisplay(display_idx).GetPPI();
++  ppi = wxDisplay(display_idx).GetPPI().x;
+ #else
+   ppi = wxGetDisplayPPI().x;
+ #endif
+@@ -137,7 +137,7 @@ wxBitmap ConfigDialogue::GetImage(wxString name,
+   int display_idx = wxDisplay::GetFromWindow(GetParent());
+   if (display_idx < 0)
+     display_idx = 0;
+-  ppi = wxDisplay(display_idx).GetPPI();
++  ppi = wxDisplay(display_idx).GetPPI().x;
+ #else
+   ppi = wxGetDisplayPPI().x;
+ #endif
+diff --git a/src/Configuration.h b/src/Configuration.h
+index 5d996a3d..19f0a451 100644
+--- a/src/Configuration.h
++++ b/src/Configuration.h
+@@ -278,10 +278,8 @@ class Configuration
+     #if wxCHECK_VERSION(3, 1, 1)
+     wxDisplay display;
+     
+-    int display_idx = wxDisplay::GetFromWindow(GetParent());
+-    if (display_idx < 0)
+-      display_idx = 0;
+-    ppi = wxDisplay(display_idx).GetPPI();
++    int display_idx = 0; // TODO: Get the index of the current window.
++    ppi = wxDisplay(display_idx).GetPPI().x;
+     #else
+     ppi = wxGetDisplayPPI().x;
+     #endif
+diff --git a/src/DrawWiz.cpp b/src/DrawWiz.cpp
+index a763a32f..36a189eb 100644
+--- a/src/DrawWiz.cpp
++++ b/src/DrawWiz.cpp
+@@ -1046,7 +1046,7 @@ wxPanel(parent)
+   int display_idx = wxDisplay::GetFromWindow(GetParent());
+   if (display_idx < 0)
+     display_idx = 0;
+-  ppi = wxDisplay(display_idx).GetPPI();
++  ppi = wxDisplay(display_idx).GetPPI().x;
+ #else
+   ppi = wxGetDisplayPPI().x;
+ #endif
+diff --git a/src/TipOfTheDay.cpp b/src/TipOfTheDay.cpp
+index 31e7d274..1fe9fa3a 100644
+--- a/src/TipOfTheDay.cpp
++++ b/src/TipOfTheDay.cpp
+@@ -264,7 +264,7 @@ wxImage TipOfTheDay::GetImage(unsigned char *data_128, size_t len_128,
+   int display_idx = wxDisplay::GetFromWindow(GetParent());
+   if (display_idx < 0)
+     display_idx = 0;
+-  ppi = wxDisplay(display_idx).GetPPI();
++  ppi = wxDisplay(display_idx).GetPPI().x;
+ #else
+   ppi = wxGetDisplayPPI().x;
+ #endif
+diff --git a/src/ToolBar.cpp b/src/ToolBar.cpp
+index cbd95930..98307a85 100644
+--- a/src/ToolBar.cpp
++++ b/src/ToolBar.cpp
+@@ -52,7 +52,7 @@ wxBitmap ToolBar::GetImage(wxString name,
+   int display_idx = wxDisplay::GetFromWindow(GetParent());
+   if (display_idx < 0)
+     display_idx = 0;
+-  ppi = wxDisplay(display_idx).GetPPI();
++  m_ppi = wxDisplay(display_idx).GetPPI();
+ #else
+   m_ppi = wxGetDisplayPPI();
+ #endif
+@@ -329,7 +329,7 @@ ToolBar::ToolBar(wxWindow *parent) : wxAuiToolBar(parent,-1, wxDefaultPosition,
+   int display_idx = wxDisplay::GetFromWindow(GetParent());
+   if (display_idx < 0)
+     display_idx = 0;
+-  ppi = wxDisplay(display_idx).GetPPI();
++  m_ppi = wxDisplay(display_idx).GetPPI();
+ #else
+   m_ppi = wxGetDisplayPPI();
+ #endif
