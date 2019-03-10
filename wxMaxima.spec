@@ -4,16 +4,12 @@
 
 Summary: Graphical user interface for Maxima
 Name:    wxMaxima
-Version: 19.03.0
+Version: 19.03.1
 Release: 1%{?dist}
 
 License: GPLv2+
 URL:     http://wxmaxima-developers.github.io/wxmaxima/
 Source0: https://github.com/wxMaxima-developers/wxmaxima/archive/Version-%{version}.tar.gz
-
-# Upstream patches
-Patch0: wxmaxima-fix-2-displays.patch
-Patch1: wxmaxima-remove-early-note.patch
 
 # match archs maxima uses
 ExclusiveArch: %{arm} %{ix86} x86_64 aarch64 ppc sparcv9
@@ -42,8 +38,6 @@ Maxima using wxWidgets.
 
 %prep
 %autosetup -n wxmaxima-Version-%{version} -p1
-%patch0 -p1 -b .fix2display
-%patch1 -p1 -b .fixeralynote
 
 dos2unix data/io.github.wxmaxima_developers.wxMaxima.desktop
 desktop-file-validate data/io.github.wxmaxima_developers.wxMaxima.desktop
@@ -109,6 +103,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/io.github.wxmaxima_de
 
 
 %changelog
+* Sun Mar 10 2019 José Matos <jamatos@fedoraproject.org> - 19.03.1-1
+- 19.03.1
+- drop patches applied upstream
+
 * Wed Mar  6 2019 José Matos <jamatos@fedoraproject.org> - 19.03.0-1
 - 19.03.0
 - apply two upstream patches to fix reported bugs (#1591430 and bodhi)
