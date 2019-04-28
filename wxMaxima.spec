@@ -11,6 +11,9 @@ License: GPLv2+
 URL:     http://wxmaxima-developers.github.io/wxmaxima/
 Source0: https://github.com/wxMaxima-developers/wxmaxima/archive/Version-%{version}.tar.gz
 
+# Fix appdata file (bad xml file)
+Patch0: wxMaxima-19.04.03-fix_appdata.patch
+
 # match archs maxima uses
 ExclusiveArch: %{arm} %{ix86} x86_64 aarch64 ppc sparcv9
 
@@ -105,6 +108,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/io.github.wxmaxima_de
 %changelog
 * Sun Apr 28 2019 José Matos <jamatos@fedoraproject.org> - 19.04.3-1
 - 19.04.3
+- add upstream patch to fix bad xml appdata file
 
 * Sat Apr 13 2019 José Matos <jamatos@fedoraproject.org> - 19.04.1-1
 - 19.04.1
