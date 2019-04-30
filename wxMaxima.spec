@@ -8,7 +8,7 @@ Version: 19.04.3
 Release: 1%{?dist}
 
 License: GPLv2+
-URL:     http://wxmaxima-developers.github.io/wxmaxima/
+URL:     https://wxmaxima-developers.github.io/wxmaxima/
 Source0: https://github.com/wxMaxima-developers/wxmaxima/archive/Version-%{version}.tar.gz
 
 # Fix appdata file (bad xml file)
@@ -306,7 +306,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/io.github.wxmaxima_de
 * Fri Nov 23 2007 Rex Dieter <rdieter[AT]fedoraproject.org> 0.7.3a-1
 - wxMaxima-0.7.3a
 
-* Fri Oct 17 2007 Rex Dieter <rdieter[AT]fedoraproject.org> 0.7.3-4.1
+* Fri Oct 19 2007 Rex Dieter <rdieter[AT]fedoraproject.org> 0.7.3-4.1
 - inline plotting of wxMaxima doesn't work in f7 (#339161)
 
 * Fri Sep 14 2007 Rex Dieter <rdieter[AT]fedoraproject.org> 0.7.3-4
