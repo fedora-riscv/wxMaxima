@@ -4,17 +4,16 @@
 
 Summary: Graphical user interface for Maxima
 Name:    wxMaxima
-Version: 19.04.3
-Release: 2%{?dist}
+Version: 19.05.0
+Release: 1%{?dist}
 
 License: GPLv2+
 URL:     https://wxmaxima-developers.github.io/wxmaxima/
 Source0: https://github.com/wxMaxima-developers/wxmaxima/archive/Version-%{version}.tar.gz
 
-# Fix appdata file (bad xml file)
-Patch0: wxMaxima-19.04.03-fix_appdata.patch
-# Potencial fix for the disappearing text
-Patch1: wxMaxima-19.04.03-fix_disappearing_text.patch
+## upstreamable patches
+# already in upstream git
+Patch1: wxMaxima-19.05.0-worksheet-clear.patch
 
 # match archs maxima uses
 ExclusiveArch: %{arm} %{ix86} x86_64 aarch64 ppc sparcv9
@@ -108,6 +107,11 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/io.github.wxmaxima_de
 
 
 %changelog
+* Sat May  4 2019 José Matos <jamatos@fedoraproject.org> - 19.05.0-1
+- update to 19.05.0
+- drop upstream patches
+- add patch to fix compilation (added to upstream after the release)
+
 * Wed May  1 2019 José Matos <jamatos@fedoraproject.org> - 19.04.3-2
 - Try fix to show disappearing text after the first page
   (https://github.com/wxMaxima-developers/wxmaxima/issues/1113)
