@@ -4,7 +4,7 @@
 
 Summary: Graphical user interface for Maxima
 Name:    wxMaxima
-Version: 19.05.0
+Version: 19.05.3
 Release: 1%{?dist}
 
 License: GPLv2+
@@ -12,8 +12,7 @@ URL:     https://wxmaxima-developers.github.io/wxmaxima/
 Source0: https://github.com/wxMaxima-developers/wxmaxima/archive/Version-%{version}.tar.gz
 
 ## upstreamable patches
-# already in upstream git
-Patch1: wxMaxima-19.05.0-worksheet-clear.patch
+# Hurray, none at this release :-)
 
 # match archs maxima uses
 ExclusiveArch: %{arm} %{ix86} x86_64 aarch64 ppc sparcv9
@@ -107,6 +106,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/io.github.wxmaxima_de
 
 
 %changelog
+* Sat May 11 2019 José Matos <jamatos@fedoraproject.org> - 19.05.3-1
+- update to 19.05.3
+- remove upstreamed patch
+
 * Sat May  4 2019 José Matos <jamatos@fedoraproject.org> - 19.05.0-1
 - update to 19.05.0
 - drop upstream patches
