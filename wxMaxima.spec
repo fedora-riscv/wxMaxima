@@ -1,11 +1,10 @@
-
 # trim changelog included in binary rpms
 %global _changelog_trimtime %(date +%s -d "1 year ago")
 
 Summary: Graphical user interface for Maxima
 Name:    wxMaxima
-Version: 19.07.0
-Release: 3%{?dist}
+Version: 20.02.2
+Release: 1%{?dist}
 
 License: GPLv2+
 URL:     https://wxmaxima-developers.github.io/wxmaxima/
@@ -106,6 +105,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/io.github.wxmaxima_de
 
 
 %changelog
+* Mon Feb 24 2020 José Matos <jamatos@fedoraproject.org> - 20.02.2-1
+- update to 20.02.2
+
 * Fri Jan 31 2020 Fedora Release Engineering <releng@fedoraproject.org> - 19.07.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
 
