@@ -79,7 +79,7 @@ cp -alf  %{buildroot}%{_datadir}/pixmaps/text-x-wx*.svg %{buildroot}%{_datadir}/
 %find_lang wxMaxima
 
 # Unpackaged files
-rm -fv %{buildroot}%{_datadir}/wxMaxima/{COPYING,README}
+rm -fv %{buildroot}%{_datadir}/wxmaxima/{COPYING,README,README.md}
 rm -rfv %{buildroot}%{_datadir}/pixmaps/
 rm -rfv %{buildroot}%{_datadir}/menu
 
