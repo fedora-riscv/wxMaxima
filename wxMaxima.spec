@@ -3,7 +3,7 @@
 
 Summary: Graphical user interface for Maxima
 Name:    wxMaxima
-Version: 20.02.2
+Version: 20.03.1
 Release: 1%{?dist}
 
 License: GPLv2+
@@ -105,6 +105,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/io.github.wxmaxima_de
 
 
 %changelog
+* Tue Mar 24 2020 José Matos <jamatos@fedoraproject.org> - 20.03.1-1
+- update to 20.03.1
+
 * Mon Feb 24 2020 José Matos <jamatos@fedoraproject.org> - 20.02.2-1
 - update to 20.02.2
 
