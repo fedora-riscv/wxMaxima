@@ -91,6 +91,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/io.github.wxmaxima_de
 
 
 %files -f wxMaxima.lang
+%files -f wxmaxima.lang
 %doc AUTHORS ChangeLog README
 %license COPYING
 %{_bindir}/wxmaxima
