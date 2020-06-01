@@ -77,6 +77,7 @@ mkdir -p %{buildroot}%{_datadir}/icons/hicolor/scalable/mimetypes/
 cp -alf  %{buildroot}%{_datadir}/pixmaps/text-x-wx*.svg %{buildroot}%{_datadir}/icons/hicolor/scalable/mimetypes/
 
 %find_lang wxMaxima
+%find_lang wxmaxima --with-man
 
 # Unpackaged files
 rm -fv %{buildroot}%{_datadir}/wxmaxima/{COPYING,README,README.md}
@@ -107,6 +108,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/io.github.wxmaxima_de
 %changelog
 * Mon Jun  1 2020 José Matos <jamatos@fedoraproject.org> - 20.04.0-1
 - update to 20.04.0
+- add the man pages in German
 
 * Tue Mar 24 2020 José Matos <jamatos@fedoraproject.org> - 20.03.1-1
 - update to 20.03.1
