@@ -16,7 +16,6 @@ Patch0:  wxmaxima-fix-latex-crash.patch
 # match archs maxima uses
 ExclusiveArch: %{arm} %{ix86} x86_64 aarch64 ppc sparcv9
 
-BuildRequires: git-core
 BuildRequires: dos2unix
 BuildRequires: gcc
 BuildRequires: gcc-c++
@@ -40,7 +39,7 @@ Maxima using wxWidgets.
 
 
 %prep
-%autosetup -n wxmaxima-Version-%{version} -S git
+%autosetup -n wxmaxima-Version-%{version} -p1
 
 dos2unix data/io.github.wxmaxima_developers.wxMaxima.desktop
 desktop-file-validate data/io.github.wxmaxima_developers.wxMaxima.desktop

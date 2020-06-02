@@ -1,28 +1,16 @@
-From 213d70b532ed19a0ffdc39bf55ca9013eabf4cf7 Mon Sep 17 00:00:00 2001
-From: Kuba Ober <kuba@bertec.com>
-Date: Mon, 1 Jun 2020 02:35:30 -0400
-Subject: [PATCH] Fix the LaTeX copy caused by invalid format strings. Fixes
- #1288.
-
-Note: When escaping runs of percent signs (`%`), each escaped `%` must consist of a pair `%%`. Thus, each run must have an even number of `%` signs (i.e. must consist of pairs only).
----
- src/GroupCell.cpp | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/src/GroupCell.cpp b/src/GroupCell.cpp
-index 9db5ab08b..900852ba5 100644
---- a/src/GroupCell.cpp
-+++ b/src/GroupCell.cpp
-@@ -1418,7 +1418,7 @@ wxString GroupCell::ToTeXCodeCell(wxString imgDir, wxString filename, int *imgCo
-     const std::string saved_lc_numeric{setlocale(LC_NUMERIC, NULL)}; // get current LC_NUMERIC locale
-     setlocale(LC_NUMERIC, "C");
+diff -ur a/src/GroupCell.cpp b/src/GroupCell.cpp
+--- a/src/GroupCell.cpp	2020-04-18 08:14:02.000000000 +0100
++++ b/src/GroupCell.cpp	2020-06-02 18:21:17.184809273 +0100
+@@ -1561,7 +1561,7 @@
+   if (configuration->ShowCodeCells())
+   {
      str += wxString::Format(
--      "\n\n\\noindent\n%%%%%%%%%%%%%%%\n%%% INPUT:\n\\begin{minipage}[t]{%fem}\\color{red}\\bfseries\n",
-+      "\n\n\\noindent\n%%%%%%%%%%%%%%%%\n%%%% INPUT:\n\\begin{minipage}[t]{%fem}\\color{red}\\bfseries\n",
-       (double)configuration->GetLabelWidth()/14
+-      "\n\n\\noindent\n%%%%%%%%%%%%%%%\n%%% INPUT:\n\\begin{minipage}[t]{%iem}\\color{red}\\bfseries\n",
++      "\n\n\\noindent\n%%%%%%%%%%%%%%%%\n%%% INPUT:\n\\begin{minipage}[t]{%iem}\\color{red}\\bfseries\n",
+       configuration->GetLabelWidth()/14
        ) + m_inputLabel->ToTeX() +
        wxString("\n\\end{minipage}");
-@@ -1435,7 +1435,7 @@ wxString GroupCell::ToTeXCodeCell(wxString imgDir, wxString filename, int *imgCo
+@@ -1576,7 +1576,7 @@
  
    if (m_output != NULL)
    {
@@ -31,7 +19,7 @@ index 9db5ab08b..900852ba5 100644
      // Need to define labelcolor if this is Copy as LaTeX!
      if (imgCounter == NULL)
        str += wxT("\\definecolor{labelcolor}{RGB}{100,0,0}\n");
-@@ -1496,7 +1496,7 @@ wxString GroupCell::ToTeXCodeCell(wxString imgDir, wxString filename, int *imgCo
+@@ -1637,7 +1637,7 @@
      {
        // Some invisible dummy content that keeps TeX happy if there really is
        // no output to display.
