@@ -3,15 +3,15 @@
 
 Summary: Graphical user interface for Maxima
 Name:    wxMaxima
-Version: 20.04.0
-Release: 2%{?dist}
+Version: 20.06.0
+Release: 1%{?dist}
 
 License: GPLv2+
 URL:     https://wxmaxima-developers.github.io/wxmaxima/
 Source0: https://github.com/wxMaxima-developers/wxmaxima/archive/Version-%{version}.tar.gz
 
 ## upstream patches
-Patch0:  wxmaxima-fix-latex-crash.patch
+# none at this time
 
 # match archs maxima uses
 ExclusiveArch: %{arm} %{ix86} x86_64 aarch64 ppc sparcv9
@@ -90,8 +90,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/io.github.wxma
 desktop-file-validate %{buildroot}%{_datadir}/applications/io.github.wxmaxima_developers.wxMaxima.desktop
 
 
-%files -f wxMaxima.lang
-%files -f wxmaxima.lang
+%files -f wxMaxima.lang -f wxmaxima.lang
 %doc AUTHORS ChangeLog README
 %license COPYING
 %{_bindir}/wxmaxima
@@ -107,6 +106,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/io.github.wxmaxima_de
 
 
 %changelog
+* Thu Jun  4 2020 José Matos <jamatos@fedoraproject.org> - 20.06.0-1
+- update to 20.06.0
+
 * Tue Jun  2 2020 José Matos <jamatos@fedoraproject.org> - 20.04.0-2
 - use upstream patch to avoid crash when exporting to latex
 
