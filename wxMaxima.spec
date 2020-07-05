@@ -1,3 +1,5 @@
+%undefine __cmake_in_source_build
+
 # trim changelog included in binary rpms
 %global _changelog_trimtime %(date +%s -d "1 year ago")
 
@@ -46,16 +48,12 @@ desktop-file-validate data/io.github.wxmaxima_developers.wxMaxima.desktop
 
 
 %build
-mkdir %{_target_platform}
-pushd %{_target_platform}
-%cmake ..
-popd
-
-%make_build -C %{_target_platform}
+%cmake
+%cmake_build
 
 
 %install
-make install/fast DESTDIR=%{buildroot} -C %{_target_platform}
+%cmake_install
 
 # app icon
 mkdir -p %{buildroot}%{_datadir}/icons/hicolor/{scalable,48x48,64x64,128x128}/apps/
