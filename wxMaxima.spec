@@ -6,11 +6,12 @@
 Summary: Graphical user interface for Maxima
 Name:    wxMaxima
 Version: 20.07.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: GPLv2+
 URL:     https://wxmaxima-developers.github.io/wxmaxima/
 Source0: https://github.com/wxMaxima-developers/wxmaxima/archive/Version-%{version}.tar.gz
+Patch0:  wxmaxima-gcc11.patch
 
 ## upstream patches
 # none at this time
@@ -104,6 +105,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/io.github.wxmaxima_de
 
 
 %changelog
+* Tue Sep 15 2020 Jeff Law <law@redhat.com> - 20.07.0-3
+- Add missing include of cstddef for gcc-11
+
 * Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 20.07.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
 
