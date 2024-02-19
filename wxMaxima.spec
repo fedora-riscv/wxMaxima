@@ -6,7 +6,7 @@
 Summary: Graphical user interface for Maxima
 Name:    wxMaxima
 Version: 24.02.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv2+
 URL:     https://wxmaxima-developers.github.io/wxmaxima/
@@ -16,7 +16,7 @@ Source0: https://github.com/wxMaxima-developers/wxmaxima/archive/Version-%{versi
 # none at this time
 
 # match archs maxima uses
-ExclusiveArch: %{arm} %{ix86} x86_64 aarch64 ppc sparcv9
+ExclusiveArch: %{arm} %{ix86} x86_64 aarch64 ppc sparcv9 riscv64
 
 BuildRequires: dos2unix
 BuildRequires: gcc
@@ -104,6 +104,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/io.github.wxmaxima_de
 
 
 %changelog
+* Wed Aug 23 2023 Songsong Zhang <U2FsdGVkX1@gmail.com> - 24.02.1-2
+- Add riscv64 support
+
 * Fri Feb 16 2024 José Matos <jamatos@fedoraproject.org> - 24.02.1-1
 - Update to 24.02.1
 - Use Markdow versions instead of simple text that are not updated anymore
